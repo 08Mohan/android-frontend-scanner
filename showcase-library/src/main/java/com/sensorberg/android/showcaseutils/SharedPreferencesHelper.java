@@ -29,11 +29,11 @@ public class SharedPreferencesHelper {
     }
 
     public boolean foreGroundNotificationsEnabled() {
-        return preferences.getBoolean(FOREGROUND_NOTIFICATIONS, false);
+        return preferences.getBoolean(FOREGROUND_NOTIFICATIONS, true);
     }
 
     public boolean vibrationOnNotificationsEnabled() {
-        return preferences.getBoolean(VIBRATION_ON_NOTIFICATIONS, false);
+        return preferences.getBoolean(VIBRATION_ON_NOTIFICATIONS, true);
     }
 
     public void setEnableVibrationOnNotifications(boolean value) {
@@ -56,7 +56,7 @@ public class SharedPreferencesHelper {
     }
 
     public boolean isServiceDisabled() {
-        return preferences.getBoolean(SERVICE_DISABLED, true);
+        return preferences.getBoolean(SERVICE_DISABLED, false);
     }
 
     public void setServiceDisabled(boolean value){
@@ -64,6 +64,6 @@ public class SharedPreferencesHelper {
     }
 
     public boolean ledOnNotificationsEnabled() {
-        return preferences.getBoolean(LED_ON_NOTIFICATIONS, false);
+        return preferences.getBoolean(LED_ON_NOTIFICATIONS, true);
     }
 }
