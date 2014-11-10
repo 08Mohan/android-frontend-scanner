@@ -1,6 +1,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.sensorberg.android.showcaseutils">
 
+    <uses-permission android:name="android.permission.CAMERA" />
+
     <application >
         <activity android:name=".Activities.ScannerActivity" />
     </application>
