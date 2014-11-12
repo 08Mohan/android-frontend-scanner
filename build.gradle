@@ -15,8 +15,14 @@ buildscript {
 allprojects {
     repositories {
         jcenter()
+        mavenLocal()
         maven {
             url "https://raw.github.com/sensorberg-dev/android-sdk/mvn-repo";
         }
+    }
+
+    configurations.all {
+        // check for updates every build
+        resolutionStrategy.cacheChangingModulesFor 0, 'seconds'
     }
 }
