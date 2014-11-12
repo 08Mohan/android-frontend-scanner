@@ -24,7 +24,7 @@ import java.util.List;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
-public class SensorScanner implements ScannerListener, Scanner.RssiListener {
+public class SensorScanner implements ScannerListener {
     private static final String TAG = SensorScanner.class.getSimpleName();
 
 
@@ -84,7 +84,6 @@ public class SensorScanner implements ScannerListener, Scanner.RssiListener {
     public void start(){
         scanner.hostApplicationInForeground();
         scanner.addScannerListener(this);
-        scanner.setRssiListener(this);
         scanner.start();
     }
 
@@ -99,7 +98,6 @@ public class SensorScanner implements ScannerListener, Scanner.RssiListener {
 
     public void stop(){
         scanner.removeScannerListener(this);
-        scanner.setRssiListener(null);
         scanner.stop();
     }
 
@@ -142,11 +140,6 @@ public class SensorScanner implements ScannerListener, Scanner.RssiListener {
 
     @Override
     public void onScanStarted() {
-
-    }
-
-    @Override
-    public void onRssiChanged(BeaconId beaconId, EventEntry eventEntry) {
 
     }
 
