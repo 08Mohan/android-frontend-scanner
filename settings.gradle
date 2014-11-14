@@ -1,1 +1,1 @@
-include ':app', ':showcase-library', ':hockeyhelper', ':android-beacon-library-2.0', ':sensorscanner'
+include ':app', ':showcase-library', ':hockeyhelper', ':android-beacon-library-2.0', ':sensorscanner', ':showcasenetworking'

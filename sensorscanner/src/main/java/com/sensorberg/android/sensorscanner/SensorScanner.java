@@ -105,7 +105,7 @@ public class SensorScanner implements ScannerListener {
     public void onScanEventDetected(ScanEvent event) {
         if (event.getEventMask() == ScanEventType.ENTRY.getMask()){
             for (BeaconFilter beaconFilter : beaconFilters) {
-                if(beaconFilter.filter(event.getBeaconId())){
+                if(!beaconFilter.filter(event.getBeaconId())){
                     return;
                 }
             }
