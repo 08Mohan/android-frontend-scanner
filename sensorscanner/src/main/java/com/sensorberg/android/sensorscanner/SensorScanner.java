@@ -6,12 +6,11 @@ import android.os.Looper;
 import android.os.Message;
 import android.util.Log;
 
+import com.sensorberg.android.sensorscanner.filter.BeaconFilter;
 import com.sensorberg.android.sensorscanner.nameProvider.NameProvider;
 import com.sensorberg.sdk.Constants;
-import com.sensorberg.sdk.cluster.BeaconId;
 import com.sensorberg.sdk.internal.AndroidPlattform;
 import com.sensorberg.sdk.internal.Plattform;
-import com.sensorberg.sdk.scanner.EventEntry;
 import com.sensorberg.sdk.scanner.ScanEvent;
 import com.sensorberg.sdk.scanner.ScanEventType;
 import com.sensorberg.sdk.scanner.Scanner;
@@ -56,7 +55,7 @@ public class SensorScanner implements ScannerListener {
     private void handleMessage(Message msg) {
         switch (msg.what){
             case MSG_NOTIFY_LISTENER:
-                listener.updateUI(storage);
+                listener.updateUI(new TreeSet<>(storage));
                 break;
             default:{
                 Log.e(TAG, "unknown message " + msg.what);
