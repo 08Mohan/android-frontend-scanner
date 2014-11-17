@@ -19,6 +19,9 @@ allprojects {
         maven {
             url "https://raw.github.com/sensorberg-dev/android-sdk/mvn-repo";
         }
+        maven {
+            url "https://raw.github.com/sensorberg-dev/android-sdk/mvn-repo-release-candidates";
+        }
         maven{
             url 'http://172.17.12.103:8881/nexus/content/repositories/releases/'
         }

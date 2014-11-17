@@ -55,7 +55,7 @@ public class SensorScanner implements ScannerListener {
     private void handleMessage(Message msg) {
         switch (msg.what){
             case MSG_NOTIFY_LISTENER:
-                listener.updateUI(new TreeSet<>(storage));
+                listener.updateUI(new ArrayList<>(storage));
                 break;
             default:{
                 Log.e(TAG, "unknown message " + msg.what);
@@ -160,13 +160,13 @@ public class SensorScanner implements ScannerListener {
 
     private static final Listener NONE = new Listener() {
         @Override
-        public void updateUI(Iterable<BeaconScanObject> beacons) {
+        public void updateUI(List<BeaconScanObject> beacons) {
 
         }
     };
 
     public interface Listener {
-        void updateUI(Iterable<BeaconScanObject> beacons);
+        void updateUI(List<BeaconScanObject> beacons);
     }
 
     private class MySettings extends Settings {

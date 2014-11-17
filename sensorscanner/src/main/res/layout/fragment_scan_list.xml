@@ -1,0 +1,39 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="@android:color/darker_gray"
+    tools:context="com.sensorberg.configandroid.SingleConfig$PlaceholderFragment" >
+
+    <ListView
+        android:id="@android:id/list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="2dp"
+        android:background="@color/bg_gray"
+        >
+    </ListView>
+
+    <RelativeLayout android:id="@android:id/empty"
+                  android:layout_width="fill_parent"
+                  android:layout_height="wrap_content"
+                  android:background="@android:color/darker_gray"
+            >
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/white"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/list_empty_view_margin_top"
+                android:layout_marginBottom="@dimen/list_empty_view_margin_top"
+                android:text="@string/scanlist_empty_text"
+                />
+    </RelativeLayout>
+
+</RelativeLayout>
