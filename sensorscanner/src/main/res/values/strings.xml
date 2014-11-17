@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    
+    <string name="app_name">BeaCfg</string>
+    <string name="bconfig">BeaCfg</string>
+    <string name="sensorberg">Sensorberg</string>
+    <string name="beacfg">BeaCfg</string>
+    
+    <string name="baseactivity_noBT">No Bluetooth Support</string>
+    <string name="baseactivity_noBTLE">No Bluetooth Low Energy Support</string>
+    
+    <!-- Strings related to login -->
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="action_goto_bluetooth_settings">Go to Bluetooth Settings</string>
+    <string name="login_progress_signing_in">Signing in&#8230;</string>
+    
+    <!-- Server side errors are already sent with a human readable message, they do not appear in this list. -->
+    <string name="error_invalid_email">Email address is invalid</string>
+    <string name="error_field_required">Field required</string>
+    <string name="error_server_failed">Server did not respond</string>
+    <string name="error_network_down">Could not connect to the server</string>
+    <string name="error_network_answer_wrong">Could not decipher server answer</string>
+    <string name="error_text">Error Text</string>
+    
+    <string name="error_bluetooth_off">Bluetooth is deactivated</string>
+    <string name="error_no_bluetooth">This phone does not support bluetooth</string>
+    <string name="error_no_bluetooth_le">This phone does not support Bluetooth Low Energy (BLE)</string>
+    <string name="error_bluetooth_changing_on">Bluetooth is turning on</string>
+    <string name="error_bluetooth_changing_off">Bluetooth is turning off</string>
+    
+    <string name="label_sensorberg_id">Sensorberg-ID:</string>
+    <string name="dash_with_spaces"> - </string>
+    <string name="label_uuid">UUID:</string>
+    <string name="label_major">Major:</string>
+    <string name="label_minor">Minor:</string>
+    <string name="label_distance">Distance:</string>
+    <string name="distance_units_shorthand">m</string>
+    
+    <string name="scanlist_empty_text">Scanning for Sensorberg beacons…</string>
+    
+    <string name="label_scan_activity">Scan</string>
+    <string name="label_detail_activity">Configure</string>
+    
+    <string name="label_header_headline_reading">Reading from Server</string>
+    <string name="label_header_headline_unregistered">Unregistered beacon</string>
+    <string name="label_header_uuid"><![CDATA[<b>UUID:</b>&nbsp;]]></string>
+    <string name="label_header_major"><![CDATA[<b>Major:</b>&nbsp;]]></string>
+    <string name="label_header_minor"><![CDATA[<b>Minor:</b>&nbsp;]]></string>
+    <string name="label_header_sensorberg_id"><![CDATA[<b>Sensorberg-ID:</b>&nbsp;]]></string>
+    <string name="label_header_vendor"><![CDATA[<b>Vendor:</b>&nbsp;]]></string>
+    <string name="label_header_battery_state"><![CDATA[<b>Battery state:</b>&nbsp;]]></string>
+    <string name="label_header_signal_strength"><![CDATA[<b>Transmission power:</b>&nbsp;]]></string>
+    <string name="label_header_advertisement_interval"><![CDATA[<b>Advertisement interval:</b>&nbsp;]]></string>
+    <string name="label_header_registered"><![CDATA[<b>Registered:</b>&nbsp;]]></string>
+    <string name="label_header_last_config"><![CDATA[<b>Last config.:</b>&nbsp;]]></string>
+    <string name="label_header_empty_value">-</string>
+    <string name="label_header_registered_true">yes</string>
+    <string name="label_header_registered_false">no</string>
+    
+    <string name="label_connect_start_infotext">Press "Start" to connect with this beacon and to enter the configuration mode.</string>
+    <string name="label_connect_start_errortext">Error Text</string>
+    <string name="action_connect_start_startbutton">Start</string>
+    <string name="label_connect_start_infotext_wait">Please wait until we checked this beacon in the Sensorberg database.</string>
+    <string name="label_connect_start_infotext_error">An Error occurred, please see below for details.</string>
+    
+    <string name="label_connect_start_headline">Activate configuration mode</string>
+    <string name="label_connect_start_to_configure">To configure this beacon please:</string>
+    <string name="label_connect_start_open_housing">1. Open the housing</string>
+    <string name="label_connect_start_insert_battery">2. Insert the battery or press the configure button</string>
+    <string name="label_connect_start_restart_connect">3. If connection do\'s not start please pull off and on the battery or press the configure button again</string>
+    
+    <string name="label_connect_headline">Preparing beacon configuration</string>
+    <string name="label_connect_wait_for_config">Waiting for configuration mode</string>
+    <string name="label_connect_create_new_id">Create a new Sensorberg-ID…</string>
+    <string name="label_connect_enter_config_mode">Enter configuration mode…</string>
+    
+    <string name="error_connect_start_hardware_not_supported">You are trying to connect to a beacon hardware that is currently not supported.</string>
+    
+    <string name="beacon">Beacon</string>
+    
+    <string name="label_configure_and_register_text">To configure this beacon with this settings and to register it with your Sensorberg account press the \"Configure and Register\" button.</string>
+    <string name="button_configure_and_register">Configure and Register</string>
+    
+    <string name="error_initialize_beacon_hardware_configuration">Could not initialize beacon hardware configuration.</string>
+    <string name="error_invalid_configuration">Could not write beacon data because of wrong data.</string>
+    <string name="error_could_not_connect_to_beaconhardware">Could not connect to beacon hardware.</string>
+    <string name="error_write_error">Error writing data to beacon.</string>
+    <string name="error_update_server_data">Error could not update data on server.</string>
+    
+    <string name="label_write_and_upload_headline">Write and upload beacon configuration</string>
+    <string name="label_write_and_upload_write_data">Write data to beacon</string>
+    <string name="label_write_and_upload_upload_data">Upload/Register beacon data on server</string>
+    <string name="label_write_and_upload_finish_configuration">Configuration and Registration done</string>
+    <string name="toast_unexpected_api_error">something unexpected happened</string>
+    <string name="toast_authentication_failed_login_again">It seems like your session is not valid anymore. Please log in again.</string>
+
+    <string name="label_beacon_name">Edit name:</string>
+    <string name="label_seekbar_signalstrength">Set Transmission power:</string>
+    <string name="label_advertisement_interval">Set advertisement interval:</string>
+    <string name="label_advertisement_interval_note"><b>Please note:</b> The shorter the interval the higher the battery drain. Apple standard setting is 100 ms. Sensorberg suggests 1.000 ms to get the best results.</string>
+
+    <string-array name="beacon_transmission_power_levels">
+        <item>Level 1 (approx. 0.3 – 5 meters)</item>
+        <item>Level 2 (approx. 25 – 45 meters)</item>
+        <item>Level 3 (approx. 45 – 60 meters)</item>
+        <item>Level 4 (approx. 90 – 120 meters)</item>
+    </string-array>
+
+    <string-array name="beacon_transmission_power_levels_shorthand">
+        <item>Level 1</item>
+        <item>Level 2</item>
+        <item>Level 3</item>
+        <item>Level 4</item>
+    </string-array>
+
+    <string-array name="beacon_advertisement_interval_levels">
+        <item>100ms (Apple iBeacon standard)</item>
+        <item>1000ms (Sensorberg recommendation)</item>
+    </string-array>
+
+    <string-array name="beacon_advertisement_interval_levels_shorthand">
+        <item>100ms (Apple)</item>
+        <item>1000ms (Sensorberg)</item>
+    </string-array>
+
+    <string name="crouton_bluetooth_restart_did_not_help">Sorry, restarting Bluetooth did not help with your device. Our developers have been informed so we can help you.</string>
+    <string name="crouton_user_did_not_approve_to_enable_bluetooth_again">I´m sorry but you need to enable bluetooth again.</string>
+    <string name="crouton_bluetooth_recovery_requires_bluetooth_restart">Restarting Bluetooth usually helps with your Android Version…</string>
+    <string name="crouton_bluetooth_recovery_restarting_bluetooth">Bluetooth is restarting.</string>
+    <string name="crouton_bluetooth_recovery_please_enable_bluetooth_manually">Could not enable Bluetooth, please enable Bluetooth manually</string>
+    <string name="crouton_bluetooth_recovery_successfully_restarted">Bluetooth was restarted successfully.</string>
+    <string name="crouton_upload_data_was_successful">Beacon Registered / Updated Successfully</string>
+
+    <string name="accessibility_scanlist_signal_strength">Beacon signal strength</string>
+
+</resources>

@@ -28,4 +28,8 @@ public class BeaconScanObject {
     public int hashCode() {
         return beaconId.hashCode();
     }
+
+    public int getLastRSSI() {
+        return -72;
+    }
 }

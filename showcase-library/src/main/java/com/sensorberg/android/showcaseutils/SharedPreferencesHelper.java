@@ -11,6 +11,7 @@ public class SharedPreferencesHelper {
     public static final String FOREGROUND_NOTIFICATIONS = "com.sensorberg.foreground_notifications";
     public static final String SERVICE_DISABLED = "com.sensorberg.service disabled";
     private static final String LED_ON_NOTIFICATIONS = "com.sensorberg.led_on_notifications";
+    private static final String AUTH_TOKEN_FROM_LOGIN = "com.sensorberg.autTokenFromLogin";
 
     private SharedPreferences preferences;
 
@@ -65,5 +66,10 @@ public class SharedPreferencesHelper {
 
     public boolean ledOnNotificationsEnabled() {
         return preferences.getBoolean(LED_ON_NOTIFICATIONS, true);
+    }
+
+    public void setAutomaticAPIKey(String apiKey) {
+        setAPIKey(apiKey);
+        saveValueForKey(true, AUTH_TOKEN_FROM_LOGIN);
     }
 }

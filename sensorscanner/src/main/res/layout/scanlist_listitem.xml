@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="fill_parent"
+              android:layout_height="wrap_content"
+              android:padding="2dp"
+              android:background="@android:color/transparent">
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/list_item_padding"
+        android:layout_marginLeft="@dimen/list_item_margin_horizontal"
+        android:layout_marginRight="@dimen/list_item_margin_horizontal"
+        android:layout_marginTop="@dimen/list_item_margin_vertical"
+        android:layout_marginBottom="@dimen/list_item_margin_vertical"
+        android:background="@android:color/white"
+            >
+
+        <LinearLayout
+                android:id="@+id/text_layout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:minHeight="42dp"
+                android:orientation="vertical"
+                android:layout_alignParentLeft="true"
+                android:layout_toLeftOf="@+id/rangeIcon"
+                >
+
+            <TextView
+                    android:id="@+id/textview_firstline"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:layout_marginBottom="@dimen/item_spacing"
+                    />
+
+            <RelativeLayout android:id="@+id/secondline"
+                          android:layout_width="fill_parent"
+                          android:layout_height="wrap_content"
+                    >
+                <TextView
+                        android:id="@+id/textview_secondline1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        />
+                <TextView
+                        android:id="@+id/textview_secondline2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+
+                        android:layout_centerInParent="true"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        />
+            </RelativeLayout>
+
+            <TextView
+                    android:id="@+id/textview_lastline"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    />
+        </LinearLayout>
+
+        <ImageView
+                android:id="@+id/rangeIcon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:contentDescription="@string/accessibility_scanlist_signal_strength"
+                />
+
+
+    </RelativeLayout>
+</LinearLayout>
