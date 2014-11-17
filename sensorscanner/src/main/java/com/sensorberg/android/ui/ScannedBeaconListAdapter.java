@@ -41,77 +41,29 @@ public class ScannedBeaconListAdapter extends ArrayAdapter<BeaconScanObject> {
             holder = (ViewHolder) convertView.getTag();
         }
 
-
         BeaconScanObject beaconScanObject = getItem(position);
 
-        String uuid = beaconScanObject.beaconId.getUuid().toString();
-            if (this.getItemViewType(position) == VIEW_TYPE_SENSORBERG_ID) {
-                ((View) convertView.findViewById(R.id.secondline)).setVisibility(View.GONE);
-                sb.setLength(0);
-                sb.append(getContext().getText(R.string.label_sensorberg_id));
-                sb.append(uuid.charAt(uuid.length() - 1));
-                sb.append(getContext().getText(R.string.dash_with_spaces));
-                sb.append(beaconScanObject.beaconId.getMajorId());
-                sb.append(getContext().getText(R.string.dash_with_spaces));
-                sb.append(beaconScanObject.beaconId.getMinorId());
-                holder.textviewFirstLine.setText(sb.toString());
+        holder.textviewFirstLine.setText(beaconScanObject.beaconName.first);
+        holder.textviewSecondline1.setText(beaconScanObject.beaconName.second);
+        holder.textviewSecondline2.setText(beaconScanObject.beaconName.third);
+        holder.textviewLastline.setText(beaconScanObject.beaconId.toTraditionalString());
 
-                sb.setLength(0);
-                sb.append(getContext().getText(R.string.label_distance));
-                sb.append(beaconScanObject.getLastRSSI());
-                sb.append(getContext().getText(R.string.distance_units_shorthand));
-                holder.textviewLastline.setText(sb.toString());
-            } else {
-                ((View) convertView.findViewById(R.id.secondline)).setVisibility(View.VISIBLE);
 
-                sb.setLength(0);
-                sb.append(getContext().getText(R.string.label_uuid));
-                sb.append(beaconScanObject.beaconId.getUuid().toString());
-                holder.textviewFirstLine.setText(sb.toString());
-
-                sb.setLength(0);
-                sb.append(getContext().getText(R.string.label_major));
-                sb.append(beaconScanObject.beaconId.getMajorId());
-                holder.textviewSecondline1.setText(sb.toString());
-
-                sb.setLength(0);
-                sb.append(getContext().getText(R.string.label_minor));
-                sb.append(beaconScanObject.beaconId.getMinorId());
-                holder.textviewSecondline2.setText(sb.toString());
-
-                sb.setLength(0);
-                sb.append(getContext().getText(R.string.label_distance));
-                sb.append(beaconScanObject.getLastRSSI());
-                sb.append(getContext().getText(R.string.distance_units_shorthand));
-                holder.textviewLastline.setText(sb.toString());
-            }
-
-            //TODO:check if image caching is needed
-            //show scan range icon
-            if (beaconScanObject.getLastRSSI() < Constants.BEACON_RANGE_LOW) {
-                holder.rangeIcon.setImageResource(R.drawable.range0);
-            } else if (beaconScanObject.getLastRSSI() < Constants.BEACON_RANGE_MID) {
-                holder.rangeIcon.setImageResource(R.drawable.range1);
-            } else if (beaconScanObject.getLastRSSI() < Constants.BEACON_RANGE_HIGH) {
-                holder.rangeIcon.setImageResource(R.drawable.range2);
-            } else {
-                holder.rangeIcon.setImageResource(R.drawable.range3);
-            }
+        //TODO:check if image caching is needed
+        //show scan range icon
+        if (beaconScanObject.getLastRSSI() < Constants.BEACON_RANGE_LOW) {
+            holder.rangeIcon.setImageResource(R.drawable.range0);
+        } else if (beaconScanObject.getLastRSSI() < Constants.BEACON_RANGE_MID) {
+            holder.rangeIcon.setImageResource(R.drawable.range1);
+        } else if (beaconScanObject.getLastRSSI() < Constants.BEACON_RANGE_HIGH) {
+            holder.rangeIcon.setImageResource(R.drawable.range2);
+        } else {
+            holder.rangeIcon.setImageResource(R.drawable.range3);
+        }
 
 
         convertView.setTag(holder);
         return convertView;
-    }
-
-    @Override
-    public int getItemViewType(int position) {
-        BeaconScanObject item = this.getItem(position);
-        if (item != null) {
-            if (item.beaconId.getNormalizedUUIDString().contains("7367672374000000FFFF0000FFFF000")) {
-                return VIEW_TYPE_SENSORBERG_ID;
-            }
-        }
-        return VIEW_TYPE_OTHER_ID;
     }
 
     @Override

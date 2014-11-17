@@ -28,22 +28,22 @@
 
             <TextView
                     android:id="@+id/textview_firstline"
-                    android:layout_width="wrap_content"
+                    android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceSmall"
                     android:layout_marginBottom="@dimen/item_spacing"
-                    />
+                    android:text="First line"/>
 
             <RelativeLayout android:id="@+id/secondline"
                           android:layout_width="fill_parent"
-                          android:layout_height="wrap_content"
-                    >
+                          android:layout_height="wrap_content">
                 <TextView
                         android:id="@+id/textview_secondline1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentLeft="true"
                         android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:text="second line 1"
                         />
                 <TextView
                         android:id="@+id/textview_secondline2"
@@ -52,14 +52,16 @@
 
                         android:layout_centerInParent="true"
                         android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:text="second line 2"
                         />
             </RelativeLayout>
 
             <TextView
                     android:id="@+id/textview_lastline"
-                    android:layout_width="wrap_content"
+                    android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text="last line"
                     />
         </LinearLayout>
 
@@ -70,6 +72,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:contentDescription="@string/accessibility_scanlist_signal_strength"
+                android:src="@drawable/range0"
                 />
 
 

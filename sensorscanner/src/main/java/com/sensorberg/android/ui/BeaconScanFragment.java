@@ -24,12 +24,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-public class BeaconScanFragment extends ListFragment implements SensorScanner.Listener {
+public abstract class BeaconScanFragment extends ListFragment implements SensorScanner.Listener {
 
     private final List<BeaconScanObject> scanObjects;
     private int viewLayout;
 
-    private OnItemClickListener onItemClickListener;
     private SensorScanner scanner;
     private ScannedBeaconListAdapter adapter;
 
@@ -38,14 +37,12 @@ public class BeaconScanFragment extends ListFragment implements SensorScanner.Li
         this.viewLayout = R.layout.fragment_scan_list;
     }
 
+    protected abstract SensorScanner getScanner();
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        scanner = new SensorScanner(getActivity());
-        scanner
-                .addNameProvider(new CompetitorNameProvider())
-                .addNameProvider(new SensorbergNameProvider())
-                .addNameProvider(new GenericNameProvider());
+        scanner = getScanner();
         scanner.setListener(this);
     }
 
@@ -59,15 +56,6 @@ public class BeaconScanFragment extends ListFragment implements SensorScanner.Li
     public void onPause() {
         scanner.stop();
         super.onPause();
-    }
-
-
-    @Override
-    public void onListItemClick(ListView l, View v, int position, long id) {
-        super.onListItemClick(l, v, position, id);
-        if (this.onItemClickListener != null) {
-            this.onItemClickListener.onItemClick(l, v, position, id);
-        }
     }
 
     @Override
