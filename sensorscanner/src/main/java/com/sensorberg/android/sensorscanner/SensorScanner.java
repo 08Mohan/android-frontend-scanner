@@ -11,6 +11,7 @@ import com.sensorberg.android.sensorscanner.nameProvider.NameProvider;
 import com.sensorberg.sdk.Constants;
 import com.sensorberg.sdk.internal.AndroidPlattform;
 import com.sensorberg.sdk.internal.Plattform;
+import com.sensorberg.sdk.resolver.BeaconEvent;
 import com.sensorberg.sdk.scanner.ScanEvent;
 import com.sensorberg.sdk.scanner.ScanEventType;
 import com.sensorberg.sdk.scanner.Scanner;
@@ -23,7 +24,7 @@ import java.util.List;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
-public class SensorScanner implements ScannerListener {
+public class SensorScanner implements ScannerListener, Scanner.RssiListener {
     private static final String TAG = SensorScanner.class.getSimpleName();
 
 
@@ -36,6 +37,11 @@ public class SensorScanner implements ScannerListener {
     private SortedSet<BeaconScanObject> storage = new TreeSet<>(BeaconSorter.ALPHABETICAL);
 
     private final Scanner scanner;
+
+    @Override
+    public void onRssiUpdated(BeaconEvent beaconEvent, Integer integer) {
+
+    }
 
 
     private static class ResponderHandler extends android.os.Handler {
@@ -78,11 +84,13 @@ public class SensorScanner implements ScannerListener {
 
         scanner = new Scanner(settings, platform);
         handler = new ResponderHandler(this, Looper.myLooper());
+
     }
 
     public void start(){
         scanner.hostApplicationInForeground();
         scanner.addScannerListener(this);
+        scanner.setRssiListener(this);
         scanner.start();
     }
 

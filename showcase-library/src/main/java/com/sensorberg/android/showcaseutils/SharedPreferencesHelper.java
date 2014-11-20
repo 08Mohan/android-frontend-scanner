@@ -4,29 +4,15 @@ import android.content.SharedPreferences;
 
 public class SharedPreferencesHelper {
 
-    public static final String DEMO_ACCOUNT_API_KEY = "4b99af9f0edf71b1e40690f29a429a80da427122bb6285f58cf79285818666e3";
-    private static final String DEFAULT_API_KEY = DEMO_ACCOUNT_API_KEY;
-    public static final String API_KEY = "com.sensorberg.apiKey";
     public static final String VIBRATION_ON_NOTIFICATIONS = "com.sensorberg.vibration_on_notifications";
     public static final String FOREGROUND_NOTIFICATIONS = "com.sensorberg.foreground_notifications";
     public static final String SERVICE_DISABLED = "com.sensorberg.service disabled";
     private static final String LED_ON_NOTIFICATIONS = "com.sensorberg.led_on_notifications";
-    private static final String AUTH_TOKEN_FROM_LOGIN = "com.sensorberg.autTokenFromLogin";
 
     private SharedPreferences preferences;
 
-    public SharedPreferencesHelper(SharedPreferences preferences){
+    public SharedPreferencesHelper(SharedPreferences preferences) {
         this.preferences = preferences;
-    }
-
-    public void setAPIKey(String APIKey) {
-        SharedPreferences.Editor editor = preferences.edit();
-        editor.putString(API_KEY, APIKey);
-        editor.commit();
-    }
-
-    public String getAPIKey() {
-        return preferences.getString(API_KEY, DEFAULT_API_KEY);
     }
 
     public boolean foreGroundNotificationsEnabled() {
@@ -60,16 +46,11 @@ public class SharedPreferencesHelper {
         return preferences.getBoolean(SERVICE_DISABLED, false);
     }
 
-    public void setServiceDisabled(boolean value){
-        saveValueForKey(value,SERVICE_DISABLED );
+    public void setServiceDisabled(boolean value) {
+        saveValueForKey(value, SERVICE_DISABLED);
     }
 
     public boolean ledOnNotificationsEnabled() {
         return preferences.getBoolean(LED_ON_NOTIFICATIONS, true);
-    }
-
-    public void setAutomaticAPIKey(String apiKey) {
-        setAPIKey(apiKey);
-        saveValueForKey(true, AUTH_TOKEN_FROM_LOGIN);
     }
 }
