@@ -13,8 +13,7 @@
         android:layout_marginRight="@dimen/list_item_margin_horizontal"
         android:layout_marginTop="@dimen/list_item_margin_vertical"
         android:layout_marginBottom="@dimen/list_item_margin_vertical"
-        android:background="@android:color/white"
-            >
+        android:background="@android:color/white">
 
         <LinearLayout
                 android:id="@+id/text_layout"
@@ -56,13 +55,8 @@
                         />
             </RelativeLayout>
 
-            <TextView
-                    android:id="@+id/textview_lastline"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:text="last line"
-                    />
+
+
         </LinearLayout>
 
         <ImageView
@@ -74,7 +68,13 @@
                 android:contentDescription="@string/accessibility_scanlist_signal_strength"
                 android:src="@drawable/range0"
                 />
-
+        <TextView
+            android:id="@+id/textview_lastline"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:layout_below="@id/text_layout"
+            android:text="73676723-7400-0000-ffff-0000ffff0000:88888:88888"/>
 
     </RelativeLayout>
 </LinearLayout>
