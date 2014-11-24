@@ -62,9 +62,13 @@ public abstract class BeaconScanFragment extends ListFragment implements SensorS
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(this.viewLayout, container, false);
 
-        adapter = new ScannedBeaconListAdapter(getActivity(), R.layout.scanlist_listitem, scanObjects);
+        adapter = new ScannedBeaconListAdapter(getActivity(), R.layout.scanlist_listitem, scanObjects, getFormatter());
         setListAdapter(adapter);
         return rootView;
+    }
+
+    private ScannedBeaconListAdapter.ContentFormatter getFormatter() {
+        return new HackerFormatter();
     }
 
     @Override

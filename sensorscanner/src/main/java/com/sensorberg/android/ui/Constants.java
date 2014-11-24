@@ -1,7 +1,7 @@
 package com.sensorberg.android.ui;
 
 public class Constants {
-    public static final int BEACON_RANGE_LOW = -85;
-    public static final int BEACON_RANGE_MID = -68;
-    public static final int BEACON_RANGE_HIGH = -45;
+    public static final double BEACON_RANGE_LOW = 1;
+    public static final double BEACON_RANGE_MID = 10;
+    public static final double BEACON_RANGE_HIGH = 40;
 }

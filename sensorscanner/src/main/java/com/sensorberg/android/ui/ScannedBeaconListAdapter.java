@@ -11,17 +11,17 @@ import android.widget.TextView;
 import com.sensorberg.android.sensorscanner.BeaconScanObject;
 import com.sensorberg.android.sensorscanner.R;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.List;
-import java.util.UUID;
 
 public class ScannedBeaconListAdapter extends ArrayAdapter<BeaconScanObject> {
 
-    private static final int VIEW_TYPE_SENSORBERG_ID = 0;
-    private static final int VIEW_TYPE_OTHER_ID = 1;
-    private StringBuffer sb = new StringBuffer();
+    private final ContentFormatter contentFormatter;
 
-    public ScannedBeaconListAdapter(Context context, int resource, List<BeaconScanObject> objects) {
+    public ScannedBeaconListAdapter(Context context, int resource, List<BeaconScanObject> objects, ContentFormatter contentFormatter) {
         super(context, resource, objects);
+        this.contentFormatter = contentFormatter;
     }
 
     @Override
@@ -43,24 +43,7 @@ public class ScannedBeaconListAdapter extends ArrayAdapter<BeaconScanObject> {
 
         BeaconScanObject beaconScanObject = getItem(position);
 
-        holder.textviewFirstLine.setText(beaconScanObject.beaconName.first);
-        holder.textviewSecondline1.setText(beaconScanObject.beaconName.second);
-        holder.textviewSecondline2.setText(beaconScanObject.beaconName.third);
-        holder.textviewLastline.setText(beaconScanObject.beaconId.toTraditionalString());
-
-
-        //TODO:check if image caching is needed
-        //show scan range icon
-        if (beaconScanObject.getLastRSSI() < Constants.BEACON_RANGE_LOW) {
-            holder.rangeIcon.setImageResource(R.drawable.range0);
-        } else if (beaconScanObject.getLastRSSI() < Constants.BEACON_RANGE_MID) {
-            holder.rangeIcon.setImageResource(R.drawable.range1);
-        } else if (beaconScanObject.getLastRSSI() < Constants.BEACON_RANGE_HIGH) {
-            holder.rangeIcon.setImageResource(R.drawable.range2);
-        } else {
-            holder.rangeIcon.setImageResource(R.drawable.range3);
-        }
-
+        contentFormatter.apply(beaconScanObject, holder);
 
         convertView.setTag(holder);
         return convertView;
@@ -68,15 +51,19 @@ public class ScannedBeaconListAdapter extends ArrayAdapter<BeaconScanObject> {
 
     @Override
     public int getViewTypeCount() {
-        return 2;
+        return 1;
     }
 
 
-    private static class ViewHolder {
+    public static class ViewHolder {
         TextView textviewFirstLine;
         TextView textviewSecondline1;
         TextView textviewSecondline2;
         TextView textviewLastline;
         ImageView rangeIcon;
+    }
+
+    public static interface ContentFormatter{
+        public void apply(BeaconScanObject beaconScanObject, ViewHolder viewHolder);
     }
 }
