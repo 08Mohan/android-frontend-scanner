@@ -218,7 +218,7 @@ public class SensorScanner implements ScannerListener, Scanner.RssiListener {
 
         @Override
         public long getExitTimeout() {
-            return Constants.Time.ONE_SECOND * 4;
+            return Constants.Time.ONE_SECOND * 9;
         }
 
         @Override
