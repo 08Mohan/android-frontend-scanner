@@ -11,8 +11,6 @@ import android.widget.TextView;
 import com.sensorberg.android.sensorscanner.BeaconScanObject;
 import com.sensorberg.android.sensorscanner.R;
 
-import java.text.DecimalFormat;
-import java.text.NumberFormat;
 import java.util.List;
 
 public class ScannedBeaconListAdapter extends ArrayAdapter<BeaconScanObject> {

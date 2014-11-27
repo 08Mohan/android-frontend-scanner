@@ -27,7 +27,7 @@ import java.util.UUID;
 public abstract class BeaconScanFragment extends ListFragment implements SensorScanner.Listener {
 
     private final List<BeaconScanObject> scanObjects;
-    private int viewLayout;
+    protected int viewLayout;
 
     private SensorScanner scanner;
     private ScannedBeaconListAdapter adapter;

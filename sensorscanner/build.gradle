@@ -1,15 +1,20 @@
 apply plugin: 'com.android.library'
 
+group = "com.sensorberg.android.sensorscanner"
+archivesBaseName = getName()
+version = "1.0-SNAPSHOT"
+
+
 android {
     compileSdkVersion 21
     buildToolsVersion "21.1.1"
 
     defaultConfig {
-        applicationId "com.sensorberg.android.sensorscanner"
+        applicationId group
         minSdkVersion 14
         targetSdkVersion 21
         versionCode 1
-        versionName "1.0"
+        versionName version
     }
     buildTypes {
         release {
