@@ -30,10 +30,10 @@ public class ScannedBeaconListAdapter extends ArrayAdapter<BeaconScanObject> {
         if (convertView == null) {
             convertView = LayoutInflater.from(context).inflate(R.layout.scanlist_listitem, null);
             holder = new ViewHolder();
-            holder.textviewFirstLine = (TextView) convertView.findViewById(R.id.textview_firstline);
-            holder.textviewSecondline1 = (TextView) convertView.findViewById(R.id.textview_secondline1);
-            holder.textviewSecondline2 = (TextView) convertView.findViewById(R.id.textview_secondline2);
-            holder.textviewLastline = (TextView) convertView.findViewById(R.id.textview_lastline);
+            holder.textviewFirstLine = (TextView) convertView.findViewById(R.id.textviewFirstLine);
+            holder.textviewSecondline = (TextView) convertView.findViewById(R.id.textviewSecondline);
+            holder.textviewThirdline1 = (TextView) convertView.findViewById(R.id.textviewThirdline1);
+            holder.textviewThirdline2 = (TextView) convertView.findViewById(R.id.textviewThirdline2);
             holder.rangeIcon = (ImageView) convertView.findViewById(R.id.rangeIcon);
         } else {
             holder = (ViewHolder) convertView.getTag();
@@ -54,11 +54,11 @@ public class ScannedBeaconListAdapter extends ArrayAdapter<BeaconScanObject> {
 
 
     public static class ViewHolder {
-        TextView textviewFirstLine;
-        TextView textviewSecondline1;
-        TextView textviewSecondline2;
-        TextView textviewLastline;
-        ImageView rangeIcon;
+        public TextView textviewFirstLine;
+        public TextView textviewThirdline1;
+        public TextView textviewThirdline2;
+        public TextView textviewSecondline;
+        public ImageView rangeIcon;
     }
 
     public static interface ContentFormatter{

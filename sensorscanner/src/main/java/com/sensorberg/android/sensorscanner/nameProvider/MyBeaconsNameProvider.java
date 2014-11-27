@@ -23,9 +23,7 @@ public class MyBeaconsNameProvider implements NameProvider {
     public boolean provideName(BeaconId beaconId, BeaconName beaconName) {
         String name = storage.get(beaconId);
         if(name != null){
-            beaconName.first = name;
-            return false;
+            beaconName.name = name;
         }
-        return true;
     }
 }

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="scanlist_empty_text">Scanning for Sensorberg beacons…</string>
+    <string name="scanlist_empty_text">No beacons found</string>
     <string name="accessibility_scanlist_signal_strength">Beacon signal strength</string>
 
 </resources>

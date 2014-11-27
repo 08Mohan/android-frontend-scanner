@@ -20,7 +20,9 @@ import com.sensorberg.sdk.settings.Settings;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.SortedSet;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -37,7 +39,7 @@ public class SensorScanner implements ScannerListener, Scanner.RssiListener {
     private List<NameProvider> nameProviders = Collections.emptyList();
     private Listener listener = NONE;
     private final ResponderHandler handler;
-    private SortedSet<BeaconScanObject> storage = new TreeSet<>(BeaconSorter.ALPHABETICAL);
+    private Set<BeaconScanObject> storage = new HashSet<>();
     private RSSIContainer rssiContainer = new RSSIContainer();
     private Timer rssiTimer;
 
@@ -68,7 +70,10 @@ public class SensorScanner implements ScannerListener, Scanner.RssiListener {
     private void handleMessage(Message msg) {
         switch (msg.what){
             case MSG_NOTIFY_LISTENER:
-                List data = new ArrayList<>(storage);
+                List data;
+                synchronized (storage) {
+                    data = new ArrayList<>(storage);
+                }
                 Collections.sort(data, BeaconSorter.BY_DISTANCE);
                 listener.updateUI(data);
                 break;
@@ -105,10 +110,12 @@ public class SensorScanner implements ScannerListener, Scanner.RssiListener {
         rssiTimer.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
-                for (BeaconScanObject beaconScanObject : storage) {
-                    BeaconScanObject.BeaconScanDistance distance = rssiContainer.distance(beaconScanObject.beaconId);
-                    if(distance != null) {
-                        beaconScanObject.setLastDistance(distance);
+                synchronized (storage) {
+                    for (BeaconScanObject beaconScanObject : storage) {
+                        BeaconScanObject.BeaconScanDistance distance = rssiContainer.distance(beaconScanObject.beaconId);
+                        if (distance != null) {
+                            beaconScanObject.setLastDistance(distance);
+                        }
                     }
                 }
                 updateUI();
@@ -146,10 +153,14 @@ public class SensorScanner implements ScannerListener, Scanner.RssiListener {
             }
 
             double initialDistance = rssiContainer.addInitialRssi(event);
-            storage.add(new BeaconScanObject(event.getBeaconId(), name, initialDistance, event.getHardwareAdress(), event.getCalRssi()));
+            synchronized (storage) {
+                storage.add(new BeaconScanObject(event.getBeaconId(), name, initialDistance, event.getHardwareAdress(), event.getCalRssi()));
+            }
         } else {
             rssiContainer.removeBeaconId(event.getBeaconId());
-            storage.remove(new BeaconScanObject(event.getBeaconId()));
+            synchronized (storage) {
+                storage.remove(new BeaconScanObject(event.getBeaconId()));
+            }
         }
         updateUI();
     }
