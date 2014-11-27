@@ -25,5 +25,6 @@ public class MyBeaconsNameProvider implements NameProvider {
         if(name != null){
             beaconName.name = name;
         }
+        return true;
     }
 }
