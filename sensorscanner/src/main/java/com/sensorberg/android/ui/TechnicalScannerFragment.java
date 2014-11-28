@@ -14,6 +14,7 @@ import com.sensorberg.sdk.cluster.BeaconId;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
+import java.text.SimpleDateFormat;
 
 import de.keyboardsurfer.android.widget.crouton.Crouton;
 import de.keyboardsurfer.android.widget.crouton.Style;
@@ -73,6 +74,7 @@ public class TechnicalScannerFragment extends BeaconScanFragmentWithTotalCount i
     protected ScannedBeaconListAdapter.ContentFormatter getFormatter() {
         final NumberFormat decimalFormat = DecimalFormat.getInstance();
         decimalFormat.setMaximumFractionDigits(1);
+        final SimpleDateFormat dateFormat = new SimpleDateFormat("mm:ss.SSS");
         return new RangeFormatter() {
             @Override
             public void apply(BeaconScanObject beaconScanObject, ScannedBeaconListAdapter.ViewHolder viewHolder) {
@@ -81,7 +83,11 @@ public class TechnicalScannerFragment extends BeaconScanFragmentWithTotalCount i
 
                 viewHolder.textviewFirstLine.setText(beaconScanObject.beaconName.manufacturer + " (" + lastDistanceCalculation.samplecount + "samples )");
 
+                long timeSinceBeacon = System.currentTimeMillis() - beaconScanObject.getLastDistanceCalculation().timestamp.getTime();
+
                 viewHolder.textviewSecondline.setText(
+                        "last seen: " + dateFormat.format(beaconScanObject.getLastDistanceCalculation().timestamp) +
+                        " since: " + timeSinceBeacon+ "\n" +
                         decimalFormat.format(lastDistanceCalculation.distanceInMeters) +  "m " +
                         "rssi: " + decimalFormat.format(lastDistanceCalculation.rssi.avg) + "db " +
                         "calRssi:" + beaconScanObject.calRssi +

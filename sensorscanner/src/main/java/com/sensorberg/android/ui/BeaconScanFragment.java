@@ -2,27 +2,16 @@ package com.sensorberg.android.ui;
 
 import android.app.ListFragment;
 import android.os.Bundle;
-import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView.OnItemClickListener;
-import android.widget.ArrayAdapter;
-import android.widget.ListAdapter;
-import android.widget.ListView;
 
 import com.sensorberg.android.sensorscanner.BeaconScanObject;
 import com.sensorberg.android.sensorscanner.R;
 import com.sensorberg.android.sensorscanner.SensorScanner;
-import com.sensorberg.android.sensorscanner.nameProvider.CompetitorNameProvider;
-import com.sensorberg.android.sensorscanner.nameProvider.GenericNameProvider;
-import com.sensorberg.android.sensorscanner.nameProvider.MyBeaconsNameProvider;
-import com.sensorberg.android.sensorscanner.nameProvider.SensorbergNameProvider;
-import com.sensorberg.sdk.cluster.BeaconId;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 public abstract class BeaconScanFragment extends ListFragment implements SensorScanner.Listener {
 
@@ -56,6 +45,13 @@ public abstract class BeaconScanFragment extends ListFragment implements SensorS
     public void onPause() {
         scanner.stop();
         super.onPause();
+    }
+
+    @Override
+    public void onDestroy() {
+        scanner.setListener(null);
+        scanner = null;
+        super.onDestroy();
     }
 
     @Override

@@ -2,26 +2,46 @@ package com.sensorberg.android.sensorscanner;
 
 import com.sensorberg.sdk.cluster.BeaconId;
 
+import java.util.Date;
+
 public class BeaconScanObject {
 
     public static class BeaconScanDistance{
         public final int samplecount;
         public final RSSIContainer.MaxMinAvg rssi;
         public final double distanceInMeters;
+        public final Date timestamp;
 
+        /**
+         * used to initialize with averages
+         * @param samplecount
+         * @param rssiReadings
+         * @param calRssi
+         */
         public BeaconScanDistance(int samplecount, RSSIContainer.MaxMinAvg rssiReadings, int calRssi) {
             this.samplecount = samplecount;
             this.rssi = rssiReadings;
             this.distanceInMeters = getDistanceFromRSSI(this.rssi.avg, calRssi);
-
+            timestamp = new Date();
         }
 
+        /**
+         * copy constructor
+         * @param that
+         */
         public BeaconScanDistance(BeaconScanDistance that) {
             this.samplecount = that.samplecount;
             this.rssi = new RSSIContainer.MaxMinAvg(that.rssi);
             this.distanceInMeters = that.distanceInMeters;
+            this.timestamp = that.timestamp;
         }
 
+        /**
+         * used to initialize the first reading
+         * @param samplecount
+         * @param rssi
+         * @param calRssi
+         */
         public BeaconScanDistance(int samplecount, int rssi, int calRssi) {
             this(samplecount, new RSSIContainer.MaxMinAvg(rssi), calRssi);
         }
