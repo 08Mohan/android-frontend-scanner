@@ -67,9 +67,7 @@ public abstract class BeaconScanFragment extends ListFragment implements SensorS
         return rootView;
     }
 
-    protected ScannedBeaconListAdapter.ContentFormatter getFormatter() {
-        return new HackerFormatter();
-    }
+    protected abstract ScannedBeaconListAdapter.ContentFormatter getFormatter();
 
     @Override
     public void updateUI(List<BeaconScanObject> beacons) {

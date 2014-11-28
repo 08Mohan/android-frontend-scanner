@@ -3,5 +3,6 @@
 
     <string name="scanlist_empty_text">No beacons found</string>
     <string name="accessibility_scanlist_signal_strength">Beacon signal strength</string>
+    <string name="title_beacon_scanner_with_count">Detected Beacons (%d total)</string>
 
 </resources>

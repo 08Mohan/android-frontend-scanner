@@ -32,6 +32,7 @@ android {
 
 dependencies {
     compile "com.sensorberg.sdk:sensorberg-sdk:${project.ext.sensorbergSDKVersion}"
+    compile 'de.keyboardsurfer.android.widget:crouton:1.8.5@aar'
 }
 
 apply from: '../uploadConf.gradle'
