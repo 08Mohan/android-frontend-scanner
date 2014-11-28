@@ -33,6 +33,8 @@ android {
 dependencies {
     compile "com.sensorberg.sdk:sensorberg-sdk:${project.ext.sensorbergSDKVersion}"
     compile 'de.keyboardsurfer.android.widget:crouton:1.8.5@aar'
+
+    compile files('libs/mpandroidchartlibrary-1-7-4.jar')
 }
 
 apply from: '../uploadConf.gradle'

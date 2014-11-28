@@ -15,6 +15,13 @@ public class BeaconScanObject {
             this.distanceInMeters = getDistanceFromRSSI(this.averageRssi, calRssi);
 
         }
+
+        public BeaconScanDistance(BeaconScanDistance that) {
+            this.samplecount = that.samplecount;
+            this.averageRssi = that.averageRssi;
+            this.distanceInMeters = that.distanceInMeters;
+        }
+
         public static double getDistanceFromRSSI(double rssi, int calRssi) {
             double dist;
             double near = rssi / calRssi;

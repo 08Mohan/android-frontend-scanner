@@ -27,6 +27,12 @@ public class TechnicalScannerFragment extends BeaconScanFragmentWithTotalCount i
     private BeaconScanObject filterItem;
     private SensorScanner scanner;
 
+    public void setContainerId(int containerId) {
+        this.containerId = containerId;
+    }
+
+    private int containerId;
+
 
     @Override
     protected SensorScanner getScanner() {
@@ -56,6 +62,10 @@ public class TechnicalScannerFragment extends BeaconScanFragmentWithTotalCount i
             filterItem = (BeaconScanObject) getListAdapter().getItem(position);
             Crouton.showText(getActivity(), "showing only " + filterItem.beaconId.toTraditionalString(), Style.INFO);
         } else {
+            getActivity().getFragmentManager()
+                    .beginTransaction()
+                    .replace(containerId, new Plotfragment().setMyBeaconId(filterItem.beaconId))
+                    .commit();
             Crouton.showText(getActivity(), "showing all items ", Style.INFO);
             filterItem = null;
         }
