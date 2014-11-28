@@ -8,6 +8,7 @@ import android.util.Log;
 
 import com.sensorberg.android.sensorscanner.filter.BeaconFilter;
 import com.sensorberg.android.sensorscanner.nameProvider.NameProvider;
+import com.sensorberg.android.ui.TechnicalSettingsFragment;
 import com.sensorberg.sdk.Constants;
 import com.sensorberg.sdk.cluster.BeaconId;
 import com.sensorberg.sdk.internal.AndroidPlattform;
@@ -97,7 +98,9 @@ public class SensorScanner implements ScannerListener, Scanner.RssiListener {
 
     public SensorScanner(Context context){
         Plattform platform = new AndroidPlattform(context);
-        Settings settings = new MySettings(platform, platform.getSettingsSharedPrefs());
+        MySettings settings = new MySettings(platform, platform.getSettingsSharedPrefs());
+        settings.exitTimeOut = TechnicalSettingsFragment.getSetting(context, TechnicalSettingsFragment.EXIT_TIMEOUT);
+
 
         scanner = new Scanner(settings, platform);
         handler = new ResponderHandler(this, Looper.myLooper());
@@ -227,14 +230,17 @@ public class SensorScanner implements ScannerListener, Scanner.RssiListener {
         void updateUI(List<BeaconScanObject> beacons);
     }
 
-    private class MySettings extends Settings {
+    private static class MySettings extends Settings {
+
+        public long exitTimeOut = Constants.Time.ONE_SECOND * 9;
+
         public MySettings(Plattform platform, SharedPreferences preferences) {
             super(platform, preferences);
         }
 
         @Override
         public long getExitTimeout() {
-            return Constants.Time.ONE_SECOND * 9;
+            return exitTimeOut;
         }
 
         @Override
