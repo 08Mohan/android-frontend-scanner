@@ -6,20 +6,24 @@ public class BeaconScanObject {
 
     public static class BeaconScanDistance{
         public final int samplecount;
-        public final double averageRssi;
+        public final RSSIContainer.MaxMinAvg rssi;
         public final double distanceInMeters;
 
-        public BeaconScanDistance(int samplecount, double averageRssi, int calRssi) {
+        public BeaconScanDistance(int samplecount, RSSIContainer.MaxMinAvg rssiReadings, int calRssi) {
             this.samplecount = samplecount;
-            this.averageRssi = averageRssi;
-            this.distanceInMeters = getDistanceFromRSSI(this.averageRssi, calRssi);
+            this.rssi = rssiReadings;
+            this.distanceInMeters = getDistanceFromRSSI(this.rssi.avg, calRssi);
 
         }
 
         public BeaconScanDistance(BeaconScanDistance that) {
             this.samplecount = that.samplecount;
-            this.averageRssi = that.averageRssi;
+            this.rssi = new RSSIContainer.MaxMinAvg(that.rssi);
             this.distanceInMeters = that.distanceInMeters;
+        }
+
+        public BeaconScanDistance(int samplecount, int rssi, int calRssi) {
+            this(samplecount, new RSSIContainer.MaxMinAvg(rssi), calRssi);
         }
 
         public static double getDistanceFromRSSI(double rssi, int calRssi) {

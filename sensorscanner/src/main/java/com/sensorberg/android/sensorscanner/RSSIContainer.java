@@ -66,23 +66,52 @@ public class RSSIContainer {
         if (calRssi == null){
             return null;
         }
-        double average = avg(values);
+        MaxMinAvg rssiReadings = avg(values);
 
-        return new BeaconScanDistance(values.size(), average, calRssi);
+        return new BeaconScanDistance(values.size(), rssiReadings, calRssi);
     }
 
-    private static double avg(List<Integer> values){
+    private static MaxMinAvg avg(List<Integer> values){
         int sum = 0;
+        int max = values.get(0);
+        int min = values.get(0);
+
         for (Integer value : values) {
             sum += value;
+            if (value > max) max = value;
+            if (value < min) min= value;
         }
-        return (float) sum / values.size();
+        return new MaxMinAvg(max, min, (float) sum / values.size());
     }
 
     public void clear() {
         synchronized (storageMonitor){
             storage.clear();
             calibrationStorage.clear();
+        }
+    }
+
+    public static final class MaxMinAvg {
+        public MaxMinAvg(int max, int min, float avg) {
+            this.max = max;
+            this.min = min;
+            this.avg = avg;
+        }
+
+        public int max;
+        public int min;
+        public float avg;
+
+        public MaxMinAvg(int rssi) {
+            this.avg = rssi;
+            this.max = rssi;
+            this.min = rssi;
+        }
+
+        public MaxMinAvg(MaxMinAvg that) {
+            this.avg = that.avg;
+            this.min = that.min;
+            this.max = that.max;
         }
     }
 }

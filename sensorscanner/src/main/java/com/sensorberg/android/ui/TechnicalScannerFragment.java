@@ -10,9 +10,6 @@ import com.sensorberg.android.sensorscanner.filter.BeaconFilter;
 import com.sensorberg.android.sensorscanner.nameProvider.CompetitorNameProvider;
 import com.sensorberg.android.sensorscanner.nameProvider.NameProvider;
 import com.sensorberg.android.sensorscanner.nameProvider.SensorbergNameProvider;
-import com.sensorberg.android.ui.BeaconScanFragmentWithTotalCount;
-import com.sensorberg.android.ui.RangeFormatter;
-import com.sensorberg.android.ui.ScannedBeaconListAdapter;
 import com.sensorberg.sdk.cluster.BeaconId;
 
 import java.text.DecimalFormat;
@@ -86,7 +83,7 @@ public class TechnicalScannerFragment extends BeaconScanFragmentWithTotalCount i
 
                 viewHolder.textviewSecondline.setText(
                         decimalFormat.format(lastDistanceCalculation.distanceInMeters) +  "m " +
-                        "rssi: " + decimalFormat.format(lastDistanceCalculation.averageRssi) + "db " +
+                        "rssi: " + decimalFormat.format(lastDistanceCalculation.rssi.avg) + "db " +
                         "calRssi:" + beaconScanObject.calRssi +
                         "\n" + beaconScanObject.beaconId.getUuid().toString());
 

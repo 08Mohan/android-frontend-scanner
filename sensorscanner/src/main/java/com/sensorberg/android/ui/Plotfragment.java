@@ -24,7 +24,7 @@ import java.util.List;
 public class Plotfragment extends Fragment implements SensorScanner.Listener {
 
 
-    private static final long SAMPLERATE = 5;
+    private static final long SAMPLERATE = 2;
     private static final long SECONDS_TO_SHOW = 5;
     private LineChart chart;
     private SensorScanner scanner;
@@ -67,22 +67,28 @@ public class Plotfragment extends Fragment implements SensorScanner.Listener {
 
         ArrayList<String> xVals = new ArrayList<>();
         ArrayList<Entry> averageRssi = new ArrayList<Entry>();
+        ArrayList<Entry> minRssi = new ArrayList<Entry>();
+        ArrayList<Entry> maxRssi = new ArrayList<Entry>();
         ArrayList<Entry> distanceInMeters =  new ArrayList<>();
         ArrayList<Entry> samplecount =  new ArrayList<>();
 
         int i = 0;
         for (BeaconScanObject.BeaconScanDistance beaconScanDistance : readings) {
             xVals.add(String.valueOf(SECONDS_TO_SHOW * SAMPLERATE + 1 - i));
-            averageRssi.add(new Entry((float) -beaconScanDistance.averageRssi, i));
+            averageRssi.add(new Entry(-beaconScanDistance.rssi.avg, i));
+            minRssi.add(new Entry(-beaconScanDistance.rssi.min, i));
+            maxRssi.add(new Entry(-beaconScanDistance.rssi.max, i));
             distanceInMeters.add(new Entry((float) beaconScanDistance.distanceInMeters, i));
             samplecount.add(new Entry((float) beaconScanDistance.samplecount, i));
             i++;
         }
 
         ArrayList<LineDataSet> dataSets = new ArrayList<>();
-        dataSets.add(getDataSet(averageRssi, "Average Rssi", Color.BLACK));
-        dataSets.add(getDataSet(distanceInMeters, "Distance", Color.RED));
-        dataSets.add(getDataSet(samplecount, "Sample Count", Color.GREEN));
+        dataSets.add(getDataSet(averageRssi, "Average Rssi", Color.BLACK, 4f));
+        dataSets.add(getDataSet(minRssi, "Min Rssi", Color.LTGRAY, 1f));
+        dataSets.add(getDataSet(maxRssi, "Max Rssi", Color.DKGRAY, 1f));
+        dataSets.add(getDataSet(distanceInMeters, "Distance", Color.RED, 4f));
+        dataSets.add(getDataSet(samplecount, "Sample Count", Color.GREEN, 4f));
 
 
         // create a data object with the datasets
@@ -100,22 +106,21 @@ public class Plotfragment extends Fragment implements SensorScanner.Listener {
         chart.invalidate();
     }
 
-    private LineDataSet getDataSet(ArrayList<Entry> values, String name, int color) {
+
+    private LineDataSet getDataSet(ArrayList<Entry> values, String name, int color, float circleSize) {
         // create a dataset and give it a type
         LineDataSet set1 = new LineDataSet(values, name);
-        // set1.setFillAlpha(110);
-        // set1.setFillColor(Color.RED);
 
-        // set the line to be drawn like this "- - - - - -"
-        set1.enableDashedLine(10f, 5f, 0f);
+        set1.setCircleSize(circleSize);
+        if (circleSize > 1) {
+            set1.enableDashedLine(10f, 5f, 0f);
+            set1.setLineWidth(1f);
+        }
         set1.setColor(color);
         set1.setCircleColor(color);
-        set1.setLineWidth(1f);
-        set1.setCircleSize(4f);
+
         set1.setFillAlpha(65);
         set1.setFillColor(color);
-        // set1.setShader(new LinearGradient(0, 0, 0, mChart.getHeight(),
-        // Color.BLACK, Color.WHITE, Shader.TileMode.MIRROR));
         return set1;
     }
 
