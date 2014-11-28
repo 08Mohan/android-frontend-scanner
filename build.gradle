@@ -19,13 +19,14 @@ allprojects {
     project.ext.sensorbergBootstrapperVersion = "1.9.0-RC4"
 
     repositories {
+
         jcenter()
         mavenLocal()
         maven {
-            url "https://raw.github.com/sensorberg-dev/android-sdk/mvn-repo";
+            url "https://raw.github.com/sensorberg-dev/android-sdk/mvn-repo"
         }
         maven {
-            url "https://raw.github.com/sensorberg-dev/android-sdk/mvn-repo-release-candidates";
+            url "https://raw.github.com/sensorberg-dev/android-sdk/mvn-repo-release-candidates"
         }
         maven {
             url 'http://172.17.12.103:8881/nexus/content/repositories/releases/'
@@ -33,6 +34,9 @@ allprojects {
         maven {
             url 'http://172.17.12.103:8881/nexus/content/repositories/snapshots/'
         }
+//        maven {
+//            url "http://172.17.12.103:8881/nexus/content/repositories/central/"
+//        }
 
 
     }

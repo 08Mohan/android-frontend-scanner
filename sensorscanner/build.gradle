@@ -1,9 +1,9 @@
 apply plugin: 'com.android.library'
-apply from: '../uploadConf.gradle'
+
 
 group = "com.sensorberg.android.sensorscanner"
 archivesBaseName = getName()
-version = "1.0-SNAPSHOT"
+version = "0.1-SNAPSHOT"
 
 
 android {
@@ -33,3 +33,5 @@ android {
 dependencies {
     compile "com.sensorberg.sdk:sensorberg-sdk:${project.ext.sensorbergSDKVersion}"
 }
+
+apply from: '../uploadConf.gradle'

@@ -1,5 +1,5 @@
 apply plugin: 'com.android.library'
-apply from: '../uploadConf.gradle'
+
 
 group = "com.sensorberg.android.showcaseutils"
 archivesBaseName = getName()
@@ -33,3 +33,5 @@ dependencies {
     compile 'me.dm7.barcodescanner:zxing:1.5'
     compile "com.sensorberg.sdk:sensorberg-sdk:${project.ext.sensorbergSDKVersion}"
 }
+
+apply from: '../uploadConf.gradle'
