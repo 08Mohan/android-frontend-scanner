@@ -34,7 +34,7 @@ public class TechnicalSettingsFragment extends Fragment {
     }
 
     static Collection<Setting> settings = new ArrayList<>();
-    
+
     public static final Setting SAMPLE_RATE = new Setting(0, 10, 5, "Sample Rate", "scanner.sampleRate");
     public static final Setting SECONDS_TO_PLOT = new Setting(0, 10, 5, "Seconds to Plot", "scanner.secondsToPlot");
     public static final Setting EXIT_TIMEOUT = new Setting(0, 10000, 9000, "Exit Timeout", "scanner.exiTimeout");
@@ -76,8 +76,6 @@ public class TechnicalSettingsFragment extends Fragment {
                 @Override
                 public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                     label.setText(setting.name + ":" + seekBar.getProgress());
-                    editor.putInt(setting.preferencesKey, seekBar.getProgress());
-
                 }
 
                 @Override
@@ -87,6 +85,7 @@ public class TechnicalSettingsFragment extends Fragment {
 
                 @Override
                 public void onStopTrackingTouch(SeekBar seekBar) {
+                    editor.putInt(setting.preferencesKey, seekBar.getProgress());
                     editor.apply();
                 }
             });
