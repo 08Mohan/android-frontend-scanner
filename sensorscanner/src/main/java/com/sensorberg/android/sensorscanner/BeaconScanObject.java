@@ -29,17 +29,20 @@ public class BeaconScanObject {
 
     public final BeaconId beaconId;
     public final BeaconName beaconName;
-    private Double lastDistance = null;
     public final String hardwareAdress;
-    private final int calRssi;
+    public final int calRssi;
+
+    private Double lastDistance = null;
     private BeaconScanDistance lastDistanceCalculation;
 
-    public BeaconScanObject(BeaconId beaconId, BeaconName beaconName, double initialDistance, String hardwareAdress, int calRssi) {
+    public BeaconScanObject(BeaconId beaconId, BeaconName beaconName, double initialDistance, String hardwareAdress, int calRssi, int rssi) {
         this.beaconId = beaconId;
         this.beaconName = beaconName;
         this.lastDistance = initialDistance;
         this.hardwareAdress = hardwareAdress;
         this.calRssi = calRssi;
+        this.lastDistance = initialDistance;
+        this.lastDistanceCalculation = new BeaconScanDistance(1, rssi, calRssi);
     }
 
     public BeaconScanObject(BeaconId beaconId) {

@@ -78,4 +78,11 @@ public class RSSIContainer {
         }
         return (float) sum / values.size();
     }
+
+    public void clear() {
+        synchronized (storageMonitor){
+            storage.clear();
+            calibrationStorage.clear();
+        }
+    }
 }

@@ -23,10 +23,8 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.SortedSet;
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.TreeSet;
 
 public class SensorScanner implements ScannerListener, Scanner.RssiListener {
 
@@ -129,6 +127,8 @@ public class SensorScanner implements ScannerListener, Scanner.RssiListener {
 
     public void clearCache(){
         scanner.clearCache();
+        storage.clear();
+        rssiContainer.clear();
     }
 
 
@@ -154,7 +154,7 @@ public class SensorScanner implements ScannerListener, Scanner.RssiListener {
 
             double initialDistance = rssiContainer.addInitialRssi(event);
             synchronized (storage) {
-                storage.add(new BeaconScanObject(event.getBeaconId(), name, initialDistance, event.getHardwareAdress(), event.getCalRssi()));
+                storage.add(new BeaconScanObject(event.getBeaconId(), name, initialDistance, event.getHardwareAdress(), event.getCalRssi(), event.getInitialRssi()));
             }
         } else {
             rssiContainer.removeBeaconId(event.getBeaconId());
