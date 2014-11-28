@@ -24,6 +24,8 @@ import java.util.List;
 public class Plotfragment extends Fragment implements SensorScanner.Listener {
 
 
+    private static final long SAMPLERATE = 5;
+    private static final long SECONDS_TO_SHOW = 5;
     private LineChart chart;
     private SensorScanner scanner;
     private ArrayDeque<BeaconScanObject.BeaconScanDistance > readings;
@@ -34,6 +36,7 @@ public class Plotfragment extends Fragment implements SensorScanner.Listener {
         chart = new LineChart(getActivity());
         scanner = new SensorScanner(getActivity());
         scanner.addFilter(new BeaconIdFilter(myBeaconId));
+        scanner.setSampleRate(SAMPLERATE);
         readings = new ArrayDeque<>();
         return chart;
     }
@@ -57,19 +60,19 @@ public class Plotfragment extends Fragment implements SensorScanner.Listener {
 
         BeaconScanObject.BeaconScanDistance reading = beacons.size() == 1 ? beacons.get(0).getLastDistanceCalculation() : new BeaconScanObject.BeaconScanDistance(0,0,0);
         readings.add(new BeaconScanObject.BeaconScanDistance(reading));
-        if (readings.size() > 5){
+        if (readings.size() > SECONDS_TO_SHOW * SAMPLERATE){
             readings.removeFirst();
         }
 
 
-        ArrayList<String> xVals = new ArrayList<String>();
+        ArrayList<String> xVals = new ArrayList<>();
         ArrayList<Entry> averageRssi = new ArrayList<Entry>();
         ArrayList<Entry> distanceInMeters =  new ArrayList<>();
         ArrayList<Entry> samplecount =  new ArrayList<>();
 
         int i = 0;
         for (BeaconScanObject.BeaconScanDistance beaconScanDistance : readings) {
-            xVals.add(String.valueOf(5 - i));
+            xVals.add(String.valueOf(SECONDS_TO_SHOW * SAMPLERATE + 1 - i));
             averageRssi.add(new Entry((float) -beaconScanDistance.averageRssi, i));
             distanceInMeters.add(new Entry((float) beaconScanDistance.distanceInMeters, i));
             samplecount.add(new Entry((float) beaconScanDistance.samplecount, i));
@@ -85,26 +88,13 @@ public class Plotfragment extends Fragment implements SensorScanner.Listener {
         // create a data object with the datasets
         LineData data = new LineData(xVals, dataSets);
 
-        LimitLine ll1 = new LimitLine(0f);
-        ll1.setLineWidth(4f);
-        ll1.enableDashedLine(10f, 10f, 0f);
-        ll1.setDrawValue(true);
-        ll1.setLabelPosition(LimitLine.LimitLabelPosition.RIGHT);
-
-        LimitLine ll2 = new LimitLine(-100f);
-        ll2.setLineWidth(4f);
-        ll2.enableDashedLine(10f, 10f, 0f);
-        ll2.setDrawValue(true);
-        ll2.setLabelPosition(LimitLine.LimitLabelPosition.RIGHT);
-
         LimitLine calRssi = new LimitLine(-beacons.get(0).calRssi);
-        ll1.setLineWidth(4f);
-        ll1.enableDashedLine(10f, 10f, 0f);
-        ll1.setDrawValue(true);
-        ll1.setLabelPosition(LimitLine.LimitLabelPosition.RIGHT);
+        calRssi.setLineWidth(4f);
+        calRssi.enableDashedLine(10f, 10f, 0f);
+        calRssi.setDrawValue(true);
+        calRssi.setLabelPosition(LimitLine.LimitLabelPosition.RIGHT);
 
-        data.addLimitLine(ll1);
-        data.addLimitLine(ll2);
+
         data.addLimitLine(calRssi);
         chart.setData(data);
         chart.invalidate();

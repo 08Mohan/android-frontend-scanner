@@ -42,6 +42,7 @@ public class SensorScanner implements ScannerListener, Scanner.RssiListener {
     private Timer rssiTimer;
 
     private final Scanner scanner;
+    private long sampleRate  = 1;
 
     @Override
     public void onRssiUpdated(BeaconId beaconId, Integer nextRssi) {
@@ -49,6 +50,10 @@ public class SensorScanner implements ScannerListener, Scanner.RssiListener {
             return;
         }
         rssiContainer.addNewRssiReading(beaconId, nextRssi);
+    }
+
+    public void setSampleRate(long sampleRate) {
+        this.sampleRate = sampleRate;
     }
 
     private static class ResponderHandler extends android.os.Handler {
@@ -118,7 +123,7 @@ public class SensorScanner implements ScannerListener, Scanner.RssiListener {
                 }
                 updateUI();
             }
-        }, Constants.Time.ONE_SECOND, 1 * Constants.Time.ONE_SECOND);
+        }, Constants.Time.ONE_SECOND, 1 * Constants.Time.ONE_SECOND / sampleRate);
     }
 
     public void pause(){
