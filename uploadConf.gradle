@@ -1,0 +1,16 @@
+apply plugin: 'android-maven'
+
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            repository(url: "http://172.17.12.103:8881/nexus/content/repositories/snapshots") {
+                authentication(userName: "deployment", password: "deployment123")
+            }
+
+            snapshotRepository(url: "http://172.17.12.103:8881/nexus/content/repositories/snapshots") {
+                authentication(userName: "deployment", password: "deployment123")
+            }
+
+        }
+    }
+}

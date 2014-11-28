@@ -1,4 +1,5 @@
 apply plugin: 'com.android.library'
+apply from: '../uploadConf.gradle'
 
 group = "com.sensorberg.android.showcaseutils"
 archivesBaseName = getName()

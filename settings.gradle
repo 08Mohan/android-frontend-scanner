@@ -1,4 +1,5 @@
 include ':app'
+include ':browserheads'
 include ':showcase-library'
 include ':hockeyhelper'
 include ':android-beacon-library-2.0'
