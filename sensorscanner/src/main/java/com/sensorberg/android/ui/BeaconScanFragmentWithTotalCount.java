@@ -23,4 +23,10 @@ public abstract class BeaconScanFragmentWithTotalCount extends BeaconScanFragmen
             e.printStackTrace();
         }
     }
+
+    @Override
+    public void onDetach() {
+        getActivity().getActionBar().setTitle(null);
+        super.onDetach();
+    }
 }
