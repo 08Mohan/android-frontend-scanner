@@ -18,8 +18,10 @@ import com.sensorberg.sdk.scanner.ScanEventType;
 import com.sensorberg.sdk.scanner.Scanner;
 import com.sensorberg.sdk.scanner.ScannerListener;
 import com.sensorberg.sdk.settings.Settings;
+import com.sensorberg.utils.ListUtils;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
@@ -45,6 +47,7 @@ public class SensorScanner implements ScannerListener, Scanner.RssiListener {
 
     private final Scanner scanner;
     private long sampleWindow = 1000;
+    private final List<RuntimeFilter> runtimeFilters;
 
     @Override
     public void onRssiUpdated(BeaconId beaconId, Integer nextRssi) {
@@ -56,6 +59,10 @@ public class SensorScanner implements ScannerListener, Scanner.RssiListener {
 
     public void setSampleWindow(long sampleWindow) {
         this.sampleWindow = sampleWindow;
+    }
+
+    public void addRuntimeFilter(RuntimeFilter runtimeFilter) {
+        this.runtimeFilters.add(runtimeFilter);
     }
 
     private static class ResponderHandler extends android.os.Handler {
@@ -79,7 +86,11 @@ public class SensorScanner implements ScannerListener, Scanner.RssiListener {
                 synchronized (storage) {
                     data = new ArrayList<>(storage);
                 }
+                for (RuntimeFilter runtimeFilter : runtimeFilters) {
+                    data = ListUtils.filter(data, runtimeFilter);
+                }
                 Collections.sort(data, BeaconSorter.BY_DISTANCE);
+
                 listener.updateUI(data);
                 break;
             default:{
@@ -100,7 +111,7 @@ public class SensorScanner implements ScannerListener, Scanner.RssiListener {
     public SensorScanner(Context context){
         Plattform platform = new AndroidPlattform(context);
         settings = new DynamicSettings(platform, platform.getSettingsSharedPrefs());
-        settings.exitTimeOut = TechnicalSettingsFragment.getSetting(context, TechnicalSettingsFragment.EXIT_TIMEOUT);
+        settings.exitTimeOut = TechnicalSettingsFragment.getSetting(context, TechnicalSettingsFragment.SCANNER_EXIT_TIMEOUT);
         settings.scanTime = TechnicalSettingsFragment.getSetting(context, TechnicalSettingsFragment.PLOT_SCAN_MILIS);
         settings.pauseTime = TechnicalSettingsFragment.getSetting(context, TechnicalSettingsFragment.PLOT_PAUSE_MILIS);
 
@@ -108,6 +119,7 @@ public class SensorScanner implements ScannerListener, Scanner.RssiListener {
         scanner = new Scanner(settings, platform);
         handler = new ResponderHandler(this, Looper.myLooper());
 
+        runtimeFilters = new ArrayList<>();
     }
 
     public void start(){

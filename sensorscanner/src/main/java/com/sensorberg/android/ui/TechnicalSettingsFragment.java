@@ -38,31 +38,41 @@ public class TechnicalSettingsFragment extends Fragment {
             this.name = name;
             this.preferencesKey = preferencesKey;
             this.defaultValue = defaultValue;
-
         }
+
     }
 
     static Collection<Setting> settings = new ArrayList<>();
 
     public static final Setting SAMPLE_WINDOW = new Setting(100, (int) Constants.Time.ONE_HOUR, 1000, "ms", "Sample Window", "scanner.sampleWindow");
-    public static final Setting SAMPLE_WINDOWS_TO_PLOT = new Setting(0, 60, 5, "window", "Plot length", "scanner.windowsToPlot");
-    public static final Setting EXIT_TIMEOUT = new Setting(0, (int) Constants.Time.ONE_HOUR, 9000, "ms", "Exit Timeout", "scanner.exiTimeout");
+    public static final Setting SAMPLE_WINDOWS_TO_PLOT = new Setting(1, 60, 5, "window", "Plot length", "scanner.windowsToPlot");
 
-    public static final Setting PLOT_SCAN_MILIS = new Setting(0, (int) Constants.Time.ONE_HOUR, (int) (10 * Constants.Time.ONE_MINUTE), "ms", "Scan Time (Plot)", "plot.scanMilis");
-    public static final Setting PLOT_PAUSE_MILIS = new Setting(0, (int) (10 * Constants.Time.ONE_MINUTE), 5, "ms", "Scan Pause (Plot)", "plot.pauseMilis");
 
-    public static final Setting SCANNER_SCAN_MILIS = new Setting(0, (int) Constants.Time.ONE_HOUR, (int) (10 * Constants.Time.ONE_MINUTE), "ms", "Scan Time (Scanner)", "scanner.scanMilis");
-    public static final Setting SCANNER_PAUSE_MILIS = new Setting(0, (int) (10 * Constants.Time.ONE_MINUTE), 5, "ms", "Scan Pause (Scanner)", "scanner.pauseMilis");
+    public static final Setting PLOT_SCAN_MILIS = new Setting(1, (int) Constants.Time.ONE_HOUR, (int) (10 * Constants.Time.ONE_MINUTE), "ms", "Scan Time (Plot)", "plot.scanMilis");
+    public static final Setting PLOT_PAUSE_MILIS = new Setting(1, (int) (10 * Constants.Time.ONE_MINUTE), 5, "ms", "Scan Pause (Plot)", "plot.pauseMilis");
+
+    public static final Setting SCANNER_SCAN_MILIS = new Setting(1, (int) Constants.Time.ONE_HOUR, (int) (10 * Constants.Time.ONE_MINUTE), "ms", "Scan Time (Scanner)", "scanner.scanMilis");
+    public static final Setting SCANNER_PAUSE_MILIS = new Setting(1, (int) (10 * Constants.Time.ONE_MINUTE), 5, "ms", "Scan Pause (Scanner)", "scanner.pauseMilis");
+    public static final Setting SCANNER_EXIT_TIMEOUT = new Setting(1, (int) Constants.Time.ONE_HOUR, 9000, "ms", "Exit Timeout", "scanner.exiTimeout");
+
+    public static final Setting SCANNER_LIMIT_METERS = new Setting(1, 120, 0, "m", "Limit", "scanner.limitMeters");
+    public static final Setting SCANNER_LIMIT_RSSI = new Setting(1, 120, 0, "rssi", "Limit (Rssi) negative", "scanner.limitRssi");
 
 
     static {
         settings.add(SAMPLE_WINDOW);
         settings.add(SAMPLE_WINDOWS_TO_PLOT);
-        settings.add(EXIT_TIMEOUT);
+
         settings.add(PLOT_SCAN_MILIS);
         settings.add(PLOT_PAUSE_MILIS);
         settings.add(SCANNER_SCAN_MILIS);
+
         settings.add(SCANNER_PAUSE_MILIS);
+        settings.add(SCANNER_EXIT_TIMEOUT);
+        settings.add(SCANNER_EXIT_TIMEOUT);
+        settings.add(SCANNER_LIMIT_METERS);
+        settings.add(SCANNER_LIMIT_RSSI);
+
     }
 
     @Override

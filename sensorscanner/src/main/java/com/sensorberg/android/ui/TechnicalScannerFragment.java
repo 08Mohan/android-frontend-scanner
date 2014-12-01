@@ -5,13 +5,13 @@ import android.widget.ListView;
 
 import com.sensorberg.android.sensorscanner.BeaconName;
 import com.sensorberg.android.sensorscanner.BeaconScanObject;
+import com.sensorberg.android.sensorscanner.RuntimeFilter;
 import com.sensorberg.android.sensorscanner.SensorScanner;
 import com.sensorberg.android.sensorscanner.filter.BeaconFilter;
 import com.sensorberg.android.sensorscanner.nameProvider.CompetitorNameProvider;
 import com.sensorberg.android.sensorscanner.nameProvider.NameProvider;
 import com.sensorberg.android.sensorscanner.nameProvider.SensorbergNameProvider;
 import com.sensorberg.sdk.cluster.BeaconId;
-import com.sensorberg.sdk.settings.Settings;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
@@ -49,13 +49,31 @@ public class TechnicalScannerFragment extends BeaconScanFragmentWithTotalCount i
                             return true;
                         }
                     });
+            final int rssiFilter = TechnicalSettingsFragment.getSetting(getActivity(), TechnicalSettingsFragment.SCANNER_LIMIT_RSSI);
+            if (rssiFilter != 0) {
+                scanner.addRuntimeFilter(new RuntimeFilter() {
+                    @Override
+                    public boolean matches(BeaconScanObject beaconScanObject) {
+                        return beaconScanObject.getLastDistanceCalculation().rssi.min > -rssiFilter;
+                    }
+                });
+            }
+            final int distanceFilter = TechnicalSettingsFragment.getSetting(getActivity(), TechnicalSettingsFragment.SCANNER_LIMIT_METERS);
+            if (distanceFilter != 0) {
+                scanner.addRuntimeFilter(new RuntimeFilter() {
+                    @Override
+                    public boolean matches(BeaconScanObject beaconScanObject) {
+                        return beaconScanObject.getLastDistanceCalculation().distanceInMeters < distanceFilter;
+                    }
+                });
+            }
         }
         return scanner;
     }
 
     @Override
     public void onResume() {
-        scanner.settings.exitTimeOut = TechnicalSettingsFragment.getSetting(getActivity(), TechnicalSettingsFragment.EXIT_TIMEOUT);
+        scanner.settings.exitTimeOut = TechnicalSettingsFragment.getSetting(getActivity(), TechnicalSettingsFragment.SCANNER_EXIT_TIMEOUT);
         scanner.settings.scanTime = TechnicalSettingsFragment.getSetting(getActivity(), TechnicalSettingsFragment.SCANNER_SCAN_MILIS);
         scanner.settings.pauseTime = TechnicalSettingsFragment.getSetting(getActivity(), TechnicalSettingsFragment.SCANNER_PAUSE_MILIS);
         super.onResume();
