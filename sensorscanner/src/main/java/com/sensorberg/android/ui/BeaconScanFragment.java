@@ -49,7 +49,7 @@ public abstract class BeaconScanFragment extends ListFragment implements SensorS
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
-        if (item.getItemId() == R.id.action_pauseResume){
+        if (item.getItemId() == R.id.action_pauseResume || item.getItemId() == R.id.action_activity_indicator){
             if (scanner.isScanning()) {
                 item.setTitle(getString(R.string.scanner_menu_resume));
                 activityIndicator.setVisible(false);
