@@ -55,8 +55,8 @@ public class TechnicalSettingsFragment extends Fragment {
     public static final Setting SCANNER_PAUSE_MILIS = new Setting(1, (int) (10 * Constants.Time.ONE_MINUTE), 5, "ms", "Scan Pause (Scanner)", "scanner.pauseMilis");
     public static final Setting SCANNER_EXIT_TIMEOUT = new Setting(1, (int) Constants.Time.ONE_HOUR, 9000, "ms", "Exit Timeout", "scanner.exiTimeout");
 
-    public static final Setting SCANNER_LIMIT_METERS = new Setting(1, 120, 0, "m", "Limit", "scanner.limitMeters");
-    public static final Setting SCANNER_LIMIT_RSSI = new Setting(1, 120, 0, "rssi", "Limit (Rssi) negative", "scanner.limitRssi");
+    public static final Setting SCANNER_LIMIT_METERS = new Setting(0, 120, 0, "m", "Limit", "scanner.limitMeters");
+    public static final Setting SCANNER_LIMIT_RSSI = new Setting(0, 120, 0, "rssi", "Limit (Rssi) negative", "scanner.limitRssi");
     public static final Setting SCANNER_STALE_TIME = new Setting(1000, 10 * 1000, 2000, "ms", "Scanner stale time", "scanner.staleTime");
 
 
