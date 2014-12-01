@@ -17,7 +17,6 @@ import android.view.ViewGroup;
 import com.sensorberg.android.sensorscanner.BeaconScanObject;
 import com.sensorberg.android.sensorscanner.R;
 import com.sensorberg.android.sensorscanner.SensorScanner;
-import com.sensorberg.sdk.Logger;
 import com.sensorberg.sdk.internal.AndroidPlattform;
 
 import java.util.ArrayList;
@@ -50,7 +49,6 @@ public abstract class BeaconScanFragment extends ListFragment implements SensorS
                     noBluetoothCrouton.cancel();
                     scanner.start();
                     break;
-
             }
         }
     };
@@ -70,7 +68,7 @@ public abstract class BeaconScanFragment extends ListFragment implements SensorS
         scanner.setListener(this);
         setHasOptionsMenu(true);
 
-        noBluetoothCrouton = Crouton.makeText(getActivity(), "Bluetooth is not turned on",
+        noBluetoothCrouton = Crouton.makeText(getActivity(), R.string.error_crouton_bluetooth_not_turned_on,
                 new Style.Builder(Style.ALERT)
                         .setConfiguration(new Configuration.Builder()
                                         .setDuration(Configuration.DURATION_INFINITE)
@@ -100,8 +98,6 @@ public abstract class BeaconScanFragment extends ListFragment implements SensorS
         return false;
     }
 
-
-
     @Override
     public void onResume() {
         super.onResume();
@@ -111,7 +107,6 @@ public abstract class BeaconScanFragment extends ListFragment implements SensorS
             bluetoothNotTurnedOn();
         }
         getActivity().registerReceiver(blueoothReceiver, bluetoothIntents);
-
     }
 
     @Override
