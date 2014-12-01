@@ -43,7 +43,7 @@ public class SensorScanner implements ScannerListener, Scanner.RssiListener {
     private Timer rssiTimer;
 
     private final Scanner scanner;
-    private long sampleRate  = 1;
+    private long sampleWindow = 1000;
 
     @Override
     public void onRssiUpdated(BeaconId beaconId, Integer nextRssi) {
@@ -53,8 +53,8 @@ public class SensorScanner implements ScannerListener, Scanner.RssiListener {
         rssiContainer.addNewRssiReading(beaconId, nextRssi);
     }
 
-    public void setSampleRate(long sampleRate) {
-        this.sampleRate = sampleRate;
+    public void setSampleWindow(long sampleWindow) {
+        this.sampleWindow = sampleWindow;
     }
 
     private static class ResponderHandler extends android.os.Handler {
@@ -100,6 +100,8 @@ public class SensorScanner implements ScannerListener, Scanner.RssiListener {
         Plattform platform = new AndroidPlattform(context);
         MySettings settings = new MySettings(platform, platform.getSettingsSharedPrefs());
         settings.exitTimeOut = TechnicalSettingsFragment.getSetting(context, TechnicalSettingsFragment.EXIT_TIMEOUT);
+        settings.scanTime = TechnicalSettingsFragment.getSetting(context, TechnicalSettingsFragment.SCAN_MILIS);
+        settings.pauseTime = TechnicalSettingsFragment.getSetting(context, TechnicalSettingsFragment.PAUSE_MILIS);
 
 
         scanner = new Scanner(settings, platform);
@@ -126,7 +128,7 @@ public class SensorScanner implements ScannerListener, Scanner.RssiListener {
                 }
                 updateUI();
             }
-        }, Constants.Time.ONE_SECOND, 1 * Constants.Time.ONE_SECOND / sampleRate);
+        }, sampleWindow, sampleWindow);
     }
 
     public void pause(){
@@ -233,6 +235,8 @@ public class SensorScanner implements ScannerListener, Scanner.RssiListener {
     private static class MySettings extends Settings {
 
         public long exitTimeOut = Constants.Time.ONE_SECOND * 9;
+        public long scanTime = Long.MAX_VALUE;
+        public long pauseTime = 1;
 
         public MySettings(Plattform platform, SharedPreferences preferences) {
             super(platform, preferences);
@@ -245,12 +249,12 @@ public class SensorScanner implements ScannerListener, Scanner.RssiListener {
 
         @Override
         public long getForeGroundScanTime() {
-            return Long.MAX_VALUE;
+            return scanTime;
         }
 
         @Override
         public long getForeGroundWaitTime() {
-            return 10;
+            return pauseTime;
         }
 
         @Override

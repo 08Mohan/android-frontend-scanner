@@ -44,24 +44,33 @@ public class TechnicalSettingsFragment extends Fragment {
 
     static Collection<Setting> settings = new ArrayList<>();
 
-    public static final Setting SAMPLE_RATE = new Setting(0, 10, 5, "/s", "Sample Rate", "scanner.sampleRate");
-    public static final Setting SECONDS_TO_PLOT = new Setting(0, 10, 5, "s", "Seconds to Plot", "scanner.secondsToPlot");
+    public static final Setting SAMPLE_WINDOW = new Setting(100, (int) Constants.Time.ONE_HOUR, 1000, "ms", "Sample Window", "scanner.sampleWindow");
+    public static final Setting SAMPLE_WINDOWS_TO_PLOT = new Setting(0, 60, 5, "window", "Plot length", "scanner.windowsToPlot");
     public static final Setting EXIT_TIMEOUT = new Setting(0, (int) Constants.Time.ONE_HOUR, 9000, "ms", "Exit Timeout", "scanner.exiTimeout");
 
+    public static final Setting SCAN_MILIS = new Setting(0, (int) Constants.Time.ONE_HOUR, (int) (10 * Constants.Time.ONE_MINUTE), "ms", "Seconds to Plot", "scanner.secondsToPlot");
+    public static final Setting PAUSE_MILIS = new Setting(0, (int) (10 * Constants.Time.ONE_MINUTE), 5, "ms", "Seconds to Plot", "scanner.secondsToPlot");
+
     static {
-        settings.add(SAMPLE_RATE);
-        settings.add(SECONDS_TO_PLOT);
+        settings.add(SAMPLE_WINDOW);
+        settings.add(SAMPLE_WINDOWS_TO_PLOT);
         settings.add(EXIT_TIMEOUT);
+        settings.add(SCAN_MILIS);
+        settings.add(PAUSE_MILIS);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         LinearLayout linearLayout = new LinearLayout(inflater.getContext());
         linearLayout.setOrientation(LinearLayout.VERTICAL);
+        linearLayout.setPadding(16, 16, 16, 16);
         SharedPreferences sharedPreferences = getPrefs(inflater.getContext());
         final SharedPreferences.Editor editor = sharedPreferences.edit();
 
         for (final Setting setting : settings) {
+
+            int value = sharedPreferences.getInt(setting.preferencesKey, setting.defaultValue);
+
 
             final SeekBar seekBar = new SeekBar(inflater.getContext());
             seekBar.setMax(setting.max);
@@ -71,7 +80,9 @@ public class TechnicalSettingsFragment extends Fragment {
             LinearLayout group = new LinearLayout(inflater.getContext());
             group.setOrientation(LinearLayout.HORIZONTAL);
             final EditText editText = new EditText(inflater.getContext());
+
             editText.setInputType(EditorInfo.TYPE_CLASS_NUMBER);
+            editText.setText(String.valueOf(value));
             editText.addTextChangedListener(new TextWatcher() {
                 @Override
                 public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -115,20 +126,12 @@ public class TechnicalSettingsFragment extends Fragment {
                 @Override
                 public void onClick(View v) {
                     seekBar.setProgress(setting.defaultValue);
+                    editText.setText(String.valueOf(setting.defaultValue));
                 }
             });
 
 
-            if (sharedPreferences.contains(setting.preferencesKey)){
-                try {
-                    seekBar.setProgress(sharedPreferences.getInt(setting.preferencesKey, setting.defaultValue));
-                } catch (ClassCastException e){ //Weird android bug
-                    e.printStackTrace();
-                    seekBar.setProgress(setting.defaultValue);
-                }
-            } else {
-                seekBar.setProgress(setting.defaultValue);
-            }
+            seekBar.setProgress(value);
 
             seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
                 @Override
@@ -153,11 +156,13 @@ public class TechnicalSettingsFragment extends Fragment {
                     editor.apply();
                 }
             });
-            label.setText(setting.name + ":" + seekBar.getProgress() + setting.unit);
+            label.setText(setting.name + ":" + value + setting.unit);
 
             editText.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT, 1));
             editText.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT, 1));
 
+
+            label.setPadding(0, 16, 0, 0);
 
             linearLayout.addView(label);
             linearLayout.addView(seekBar);
@@ -166,7 +171,8 @@ public class TechnicalSettingsFragment extends Fragment {
             linearLayout.addView(group);
 
         }
-        return linearLayout;
+
+        return com.sensorberg.android.showcaseutils.ViewHelper.wrapInScrollView(linearLayout, inflater.getContext());
     }
 
     private static SharedPreferences getPrefs(Context context) {

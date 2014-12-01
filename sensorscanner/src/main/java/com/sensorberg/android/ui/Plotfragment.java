@@ -24,22 +24,23 @@ import java.util.List;
 
 public class Plotfragment extends Fragment implements SensorScanner.Listener {
 
-    private int sampleRate;
-    private int secondsToShow;
+    private int sampleWindowMilis;
+    private int sampleWindowsToShow;
     private LineChart chart;
     private SensorScanner scanner;
     private ArrayDeque<BeaconScanObject.BeaconScanDistance > readings;
     private BeaconId myBeaconId;
+    private float calRssiValue = Float.MIN_VALUE;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         chart = new LineChart(getActivity());
-        sampleRate = TechnicalSettingsFragment.getSetting(inflater.getContext(), TechnicalSettingsFragment.SAMPLE_RATE);
-        secondsToShow = TechnicalSettingsFragment.getSetting(inflater.getContext(), TechnicalSettingsFragment.SECONDS_TO_PLOT);
+        sampleWindowMilis = TechnicalSettingsFragment.getSetting(inflater.getContext(), TechnicalSettingsFragment.SAMPLE_WINDOW);
+        sampleWindowsToShow = TechnicalSettingsFragment.getSetting(inflater.getContext(), TechnicalSettingsFragment.SAMPLE_WINDOWS_TO_PLOT);
 
         scanner = new SensorScanner(getActivity());
         scanner.addFilter(new BeaconIdFilter(myBeaconId));
-        scanner.setSampleRate(sampleRate);
+        scanner.setSampleWindow(sampleWindowMilis);
         readings = new ArrayDeque<>();
         chart.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
@@ -66,9 +67,18 @@ public class Plotfragment extends Fragment implements SensorScanner.Listener {
 
     @Override
     public void updateUI(List<BeaconScanObject> beacons) {
-        BeaconScanObject.BeaconScanDistance reading = beacons.size() == 1 ? beacons.get(0).getLastDistanceCalculation() : new BeaconScanObject.BeaconScanDistance(0,0,0);
+        BeaconScanObject.BeaconScanDistance reading;
+        if (beacons.size() > 0) {
+            calRssiValue = beacons.get(0).calRssi;
+            reading = beacons.get(0).getLastDistanceCalculation();
+
+        } else {
+            reading = new BeaconScanObject.BeaconScanDistance(0,0,0);
+        }
+
+
         readings.add(new BeaconScanObject.BeaconScanDistance(reading));
-        if (readings.size() > secondsToShow * sampleRate){
+        if (readings.size() > sampleWindowsToShow){
             readings.removeFirst();
         }
 
@@ -82,7 +92,7 @@ public class Plotfragment extends Fragment implements SensorScanner.Listener {
 
         int i = 0;
         for (BeaconScanObject.BeaconScanDistance beaconScanDistance : readings) {
-            xVals.add(String.valueOf(secondsToShow * sampleRate+ 1 - i));
+            xVals.add(String.valueOf(sampleWindowsToShow + 1 - i));
             averageRssi.add(new Entry(-beaconScanDistance.rssi.avg, i));
             minRssi.add(new Entry(-beaconScanDistance.rssi.min, i));
             maxRssi.add(new Entry(-beaconScanDistance.rssi.max, i));
@@ -102,14 +112,17 @@ public class Plotfragment extends Fragment implements SensorScanner.Listener {
         // create a data object with the datasets
         LineData data = new LineData(xVals, dataSets);
 
-        LimitLine calRssi = new LimitLine(-beacons.get(0).calRssi);
-        calRssi.setLineWidth(4f);
-        calRssi.enableDashedLine(10f, 10f, 0f);
-        calRssi.setDrawValue(true);
-        calRssi.setLabelPosition(LimitLine.LimitLabelPosition.RIGHT);
+        if (calRssiValue != Float.MIN_VALUE) {
+            LimitLine calRssi = new LimitLine(calRssiValue);
+            calRssi.setLineWidth(4f);
+            calRssi.enableDashedLine(10f, 10f, 0f);
+            calRssi.setDrawValue(true);
+            calRssi.setLabelPosition(LimitLine.LimitLabelPosition.RIGHT);
+            data.addLimitLine(calRssi);
+        }
 
 
-        data.addLimitLine(calRssi);
+
         chart.setData(data);
         chart.invalidate();
     }

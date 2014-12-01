@@ -6,7 +6,11 @@ import java.util.Date;
 
 public class BeaconScanObject {
 
-    public static class BeaconScanDistance{
+
+    public static class BeaconScanDistance {
+
+        public static final BeaconScanDistance NONE = new BeaconScanDistance(0, 0, 0);
+
         public final int samplecount;
         public final RSSIContainer.MaxMinAvg rssi;
         public final double distanceInMeters;
@@ -81,6 +85,7 @@ public class BeaconScanObject {
         this.beaconName = null;
         this.hardwareAdress = null;
         this.calRssi = 0;
+        this.lastDistanceCalculation = BeaconScanDistance.NONE;
     }
 
     @Override
