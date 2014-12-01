@@ -33,6 +33,7 @@ public class SensorScanner implements ScannerListener, Scanner.RssiListener {
 
 
     private static final int MSG_NOTIFY_LISTENER = 1;
+    public final DynamicSettings settings;
 
     private List<BeaconFilter> beaconFilters = Collections.emptyList();
     private List<NameProvider> nameProviders = Collections.emptyList();
@@ -98,10 +99,10 @@ public class SensorScanner implements ScannerListener, Scanner.RssiListener {
 
     public SensorScanner(Context context){
         Plattform platform = new AndroidPlattform(context);
-        MySettings settings = new MySettings(platform, platform.getSettingsSharedPrefs());
+        settings = new DynamicSettings(platform, platform.getSettingsSharedPrefs());
         settings.exitTimeOut = TechnicalSettingsFragment.getSetting(context, TechnicalSettingsFragment.EXIT_TIMEOUT);
-        settings.scanTime = TechnicalSettingsFragment.getSetting(context, TechnicalSettingsFragment.SCAN_MILIS);
-        settings.pauseTime = TechnicalSettingsFragment.getSetting(context, TechnicalSettingsFragment.PAUSE_MILIS);
+        settings.scanTime = TechnicalSettingsFragment.getSetting(context, TechnicalSettingsFragment.PLOT_SCAN_MILIS);
+        settings.pauseTime = TechnicalSettingsFragment.getSetting(context, TechnicalSettingsFragment.PLOT_PAUSE_MILIS);
 
 
         scanner = new Scanner(settings, platform);
@@ -232,13 +233,13 @@ public class SensorScanner implements ScannerListener, Scanner.RssiListener {
         void updateUI(List<BeaconScanObject> beacons);
     }
 
-    private static class MySettings extends Settings {
+    public static class DynamicSettings extends Settings {
 
         public long exitTimeOut = Constants.Time.ONE_SECOND * 9;
         public long scanTime = Long.MAX_VALUE;
         public long pauseTime = 1;
 
-        public MySettings(Plattform platform, SharedPreferences preferences) {
+        public DynamicSettings(Plattform platform, SharedPreferences preferences) {
             super(platform, preferences);
         }
 

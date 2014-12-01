@@ -11,6 +11,7 @@ import com.sensorberg.android.sensorscanner.nameProvider.CompetitorNameProvider;
 import com.sensorberg.android.sensorscanner.nameProvider.NameProvider;
 import com.sensorberg.android.sensorscanner.nameProvider.SensorbergNameProvider;
 import com.sensorberg.sdk.cluster.BeaconId;
+import com.sensorberg.sdk.settings.Settings;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
@@ -50,6 +51,14 @@ public class TechnicalScannerFragment extends BeaconScanFragmentWithTotalCount i
                     });
         }
         return scanner;
+    }
+
+    @Override
+    public void onResume() {
+        scanner.settings.exitTimeOut = TechnicalSettingsFragment.getSetting(getActivity(), TechnicalSettingsFragment.EXIT_TIMEOUT);
+        scanner.settings.scanTime = TechnicalSettingsFragment.getSetting(getActivity(), TechnicalSettingsFragment.SCANNER_SCAN_MILIS);
+        scanner.settings.pauseTime = TechnicalSettingsFragment.getSetting(getActivity(), TechnicalSettingsFragment.SCANNER_PAUSE_MILIS);
+        super.onResume();
     }
 
     @Override
