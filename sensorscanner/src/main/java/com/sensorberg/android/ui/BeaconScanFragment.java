@@ -1,6 +1,5 @@
 package com.sensorberg.android.ui;
 
-import android.app.Activity;
 import android.app.ListFragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -48,7 +47,6 @@ public abstract class BeaconScanFragment extends ListFragment implements SensorS
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-
         if (item.getItemId() == R.id.action_pauseResume || item.getItemId() == R.id.action_activity_indicator){
             if (scanner.isScanning()) {
                 item.setTitle(getString(R.string.scanner_menu_resume));
