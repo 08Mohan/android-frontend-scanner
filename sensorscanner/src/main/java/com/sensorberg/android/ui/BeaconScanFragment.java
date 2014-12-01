@@ -122,6 +122,12 @@ public abstract class BeaconScanFragment extends ListFragment implements SensorS
     }
 
     @Override
+    public void onDetach() {
+        noBluetoothCrouton.cancel();
+        super.onDetach();
+    }
+
+    @Override
     public void onDestroy() {
         scanner.setListener(null);
         scanner = null;
