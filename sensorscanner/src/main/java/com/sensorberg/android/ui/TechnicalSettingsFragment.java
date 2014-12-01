@@ -48,8 +48,8 @@ public class TechnicalSettingsFragment extends Fragment {
     public static final Setting SAMPLE_WINDOWS_TO_PLOT = new Setting(0, 60, 5, "window", "Plot length", "scanner.windowsToPlot");
     public static final Setting EXIT_TIMEOUT = new Setting(0, (int) Constants.Time.ONE_HOUR, 9000, "ms", "Exit Timeout", "scanner.exiTimeout");
 
-    public static final Setting SCAN_MILIS = new Setting(0, (int) Constants.Time.ONE_HOUR, (int) (10 * Constants.Time.ONE_MINUTE), "ms", "Seconds to Plot", "scanner.secondsToPlot");
-    public static final Setting PAUSE_MILIS = new Setting(0, (int) (10 * Constants.Time.ONE_MINUTE), 5, "ms", "Seconds to Plot", "scanner.secondsToPlot");
+    public static final Setting SCAN_MILIS = new Setting(0, (int) Constants.Time.ONE_HOUR, (int) (10 * Constants.Time.ONE_MINUTE), "ms", "Scan Time", "scanner.scanMilis");
+    public static final Setting PAUSE_MILIS = new Setting(0, (int) (10 * Constants.Time.ONE_MINUTE), 5, "ms", "Scan Pause", "scanner.pauseMilis");
 
     static {
         settings.add(SAMPLE_WINDOW);
