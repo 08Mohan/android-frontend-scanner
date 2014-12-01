@@ -1,10 +1,15 @@
 package com.sensorberg.android.ui;
 
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.sensorberg.android.sensorscanner.BeaconName;
 import com.sensorberg.android.sensorscanner.BeaconScanObject;
+import com.sensorberg.android.sensorscanner.R;
 import com.sensorberg.android.sensorscanner.RuntimeFilter;
 import com.sensorberg.android.sensorscanner.SensorScanner;
 import com.sensorberg.android.sensorscanner.filter.BeaconFilter;
@@ -69,6 +74,25 @@ public class TechnicalScannerFragment extends BeaconScanFragmentWithTotalCount i
             }
         }
         return scanner;
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.technical_scanner, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.order_by_distance){
+            Toast.makeText(getActivity(), "coming soon", Toast.LENGTH_SHORT).show();
+            return true;
+        } else if (item.getItemId() == R.id.order_by_rssi){
+            Toast.makeText(getActivity(), "coming soon", Toast.LENGTH_SHORT).show();
+            return true;
+        } else {
+            return super.onOptionsItemSelected(item);
+        }
     }
 
     @Override

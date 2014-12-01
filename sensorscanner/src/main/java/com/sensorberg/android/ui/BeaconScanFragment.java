@@ -1,8 +1,12 @@
 package com.sensorberg.android.ui;
 
+import android.app.Activity;
 import android.app.ListFragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -33,7 +37,28 @@ public abstract class BeaconScanFragment extends ListFragment implements SensorS
         super.onCreate(savedInstanceState);
         scanner = getScanner();
         scanner.setListener(this);
+        setHasOptionsMenu(true);
     }
+
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.scanner, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.action_pauseResume){
+            if (scanner.isScanning()) {
+                item.setTitle("Resume");
+                scanner.stop();
+            } else {
+                item.setTitle("Stop");
+                scanner.start();
+            }
+        }
+        return false;
+    }
+
+
 
     @Override
     public void onResume() {

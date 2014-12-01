@@ -65,6 +65,10 @@ public class SensorScanner implements ScannerListener, Scanner.RssiListener {
         this.runtimeFilters.add(runtimeFilter);
     }
 
+    public boolean isScanning() {
+        return scanner.isScanRunning();
+    }
+
     private static class ResponderHandler extends android.os.Handler {
         private final SensorScanner mResponder;
 
