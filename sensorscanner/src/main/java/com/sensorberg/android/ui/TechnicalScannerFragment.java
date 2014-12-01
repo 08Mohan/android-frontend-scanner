@@ -102,7 +102,8 @@ public class TechnicalScannerFragment extends BeaconScanFragmentWithTotalCount i
         final NumberFormat decimalFormat = DecimalFormat.getInstance();
         decimalFormat.setMaximumFractionDigits(1);
         final SimpleDateFormat dateFormat = new SimpleDateFormat("mm:ss.SSS");
-        return new RangeFormatter() {
+        long maxAge = TechnicalSettingsFragment.getSetting(getActivity(), TechnicalSettingsFragment.SCANNER_STALE_TIME);
+        return new RangeFormatter(maxAge) {
             @Override
             public void apply(BeaconScanObject beaconScanObject, ScannedBeaconListAdapter.ViewHolder viewHolder) {
                 super.apply(beaconScanObject, viewHolder);
@@ -116,7 +117,7 @@ public class TechnicalScannerFragment extends BeaconScanFragmentWithTotalCount i
                         "last seen: " + dateFormat.format(beaconScanObject.getLastDistanceCalculation().timestamp) +
                         " since: " + timeSinceBeacon+ "\n" +
                         decimalFormat.format(lastDistanceCalculation.distanceInMeters) +  "m " +
-                        "rssi: " + decimalFormat.format(lastDistanceCalculation.rssi.avg) + "db " +
+                        "rssi: " + decimalFormat.format(lastDistanceCalculation.rssi.avg) +
                         "calRssi:" + beaconScanObject.calRssi +
                         "\n" + beaconScanObject.beaconId.getUuid().toString());
 
