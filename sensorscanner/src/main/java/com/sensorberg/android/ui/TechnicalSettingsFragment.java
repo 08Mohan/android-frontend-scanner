@@ -106,8 +106,7 @@ public class TechnicalSettingsFragment extends Fragment {
                     }
 
                     if (value > setting.max){
-                        editText.setError("Value too high");
-                        return;
+                        editText.setError("Value might be too high");
                     }
                     if (value < setting.min){
                         editText.setError("Value too low");
