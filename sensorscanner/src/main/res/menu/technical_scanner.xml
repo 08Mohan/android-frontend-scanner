@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <item android:id="@+id/clear_single_beacon_filter"
+        android:showAsAction="never"
+        android:enabled="false"
+        android:title="Show All beacons"/>
     <item
         android:id="@+id/action_orderBy"
         android:showAsAction="never"

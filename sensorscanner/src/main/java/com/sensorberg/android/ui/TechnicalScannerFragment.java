@@ -30,6 +30,7 @@ public class TechnicalScannerFragment extends BeaconScanFragmentWithTotalCount i
 
     private BeaconScanObject filterItem;
     private SensorScanner scanner;
+    private MenuItem clearSingleBeaconMenuItem;
 
     public void setContainerId(int containerId) {
         this.containerId = containerId;
@@ -80,15 +81,16 @@ public class TechnicalScannerFragment extends BeaconScanFragmentWithTotalCount i
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
         inflater.inflate(R.menu.technical_scanner, menu);
+        clearSingleBeaconMenuItem = menu.findItem(R.id.clear_single_beacon_filter);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.order_by_distance){
-            Toast.makeText(getActivity(), "coming soon", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), R.string.coming_soon, Toast.LENGTH_SHORT).show();
             return true;
         } else if (item.getItemId() == R.id.order_by_rssi){
-            Toast.makeText(getActivity(), "coming soon", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), R.string.coming_soon, Toast.LENGTH_SHORT).show();
             return true;
         } else {
             return super.onOptionsItemSelected(item);
@@ -105,17 +107,17 @@ public class TechnicalScannerFragment extends BeaconScanFragmentWithTotalCount i
 
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
-
         super.onListItemClick(l, v, position, id);
         if (filterItem == null){
             filterItem = (BeaconScanObject) getListAdapter().getItem(position);
-            Crouton.showText(getActivity(), "showing only " + filterItem.beaconId.toTraditionalString(), Style.INFO);
+            Crouton.showText(getActivity(), getString(R.string.single_scan_crouton, filterItem.beaconId.toTraditionalString()), Style.INFO);
+            clearSingleBeaconMenuItem.setEnabled(true);
         } else {
             getActivity().getFragmentManager()
                     .beginTransaction()
                     .replace(containerId, new Plotfragment().setMyBeaconId(filterItem.beaconId))
                     .commit();
-            Crouton.showText(getActivity(), "showing all items ", Style.INFO);
+            clearSingleBeaconMenuItem.setEnabled(false);
             filterItem = null;
         }
         scanner.start();

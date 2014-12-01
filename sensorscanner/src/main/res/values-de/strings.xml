@@ -7,5 +7,7 @@
     <string name="scanner_menu_Stop">Stop</string>
     <string name="error_crouton_bluetooth_not_turned_on">Bluetooth ist nicht eingeschaltet.</string>
     <string name="single_scan_title">Single beacon scan</string>
+    <string name="single_scan_crouton">Showing only %s</string>
+    <string name="coming_soon">coming soon</string>
 
 </resources>
