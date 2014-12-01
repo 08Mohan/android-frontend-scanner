@@ -118,6 +118,7 @@ public class TechnicalScannerFragment extends BeaconScanFragmentWithTotalCount i
             Crouton.showText(getActivity(), "showing all items ", Style.INFO);
             filterItem = null;
         }
+        scanner.start();
         scanner.clearCache();
 
     }
@@ -165,7 +166,7 @@ public class TechnicalScannerFragment extends BeaconScanFragmentWithTotalCount i
         if (filterItem == null){
             super.setTitle(size);
         } else {
-            getActivity().getActionBar().setTitle(filterItem.beaconName.name);
+            getActivity().getActionBar().setTitle(getText(R.string.single_scan_title));
         }
     }
 }
