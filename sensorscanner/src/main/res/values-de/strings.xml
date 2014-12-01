@@ -3,5 +3,7 @@
     <string name="scanlist_empty_text">Scanne nach Sensorberg-Beacons…</string>
     <string name="accessibility_scanlist_signal_strength">Signalstärke des Beacons</string>
     <string name="title_beacon_scanner_with_count">Beacons (%d)</string>
+    <string name="scanner_menu_resume">Scannen</string>
+    <string name="scanner_menu_Stop">Stop</string>
 
 </resources>

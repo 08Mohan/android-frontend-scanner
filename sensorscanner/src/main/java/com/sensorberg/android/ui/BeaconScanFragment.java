@@ -24,6 +24,7 @@ public abstract class BeaconScanFragment extends ListFragment implements SensorS
 
     private SensorScanner scanner;
     private ScannedBeaconListAdapter adapter;
+    private MenuItem activityIndicator;
 
     public BeaconScanFragment() {
         scanObjects = new ArrayList<>();
@@ -42,16 +43,20 @@ public abstract class BeaconScanFragment extends ListFragment implements SensorS
 
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.scanner, menu);
+        activityIndicator = menu.findItem(R.id.action_activity_indicator);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+
         if (item.getItemId() == R.id.action_pauseResume){
             if (scanner.isScanning()) {
-                item.setTitle("Resume");
+                item.setTitle(getString(R.string.scanner_menu_resume));
+                activityIndicator.setVisible(false);
                 scanner.stop();
             } else {
-                item.setTitle("Stop");
+                item.setTitle(getString(R.string.scanner_menu_Stop));
+                activityIndicator.setVisible(true);
                 scanner.start();
             }
         }
