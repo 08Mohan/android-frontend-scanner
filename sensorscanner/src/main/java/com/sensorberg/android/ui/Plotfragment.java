@@ -30,7 +30,7 @@ public class Plotfragment extends Fragment implements SensorScanner.Listener {
     private SensorScanner scanner;
     private ArrayDeque<BeaconScanObject.BeaconScanDistance > readings;
     private BeaconId myBeaconId;
-    private float calRssiValue = Float.MIN_VALUE;
+    private Integer calRssiValue = null;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -112,16 +112,14 @@ public class Plotfragment extends Fragment implements SensorScanner.Listener {
         // create a data object with the datasets
         LineData data = new LineData(xVals, dataSets);
 
-        if (calRssiValue != Float.MIN_VALUE) {
-            LimitLine calRssi = new LimitLine(calRssiValue);
-            calRssi.setLineWidth(4f);
+        if (calRssiValue != null) {
+            LimitLine calRssi = new LimitLine(-calRssiValue);
+            calRssi.setLineWidth(2f);
             calRssi.enableDashedLine(10f, 10f, 0f);
             calRssi.setDrawValue(true);
             calRssi.setLabelPosition(LimitLine.LimitLabelPosition.RIGHT);
             data.addLimitLine(calRssi);
         }
-
-
 
         chart.setData(data);
         chart.invalidate();
