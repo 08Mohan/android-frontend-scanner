@@ -1,6 +1,11 @@
 package com.sensorberg.android.ui;
 
 import android.app.ListFragment;
+import android.bluetooth.BluetoothAdapter;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -12,9 +17,15 @@ import android.view.ViewGroup;
 import com.sensorberg.android.sensorscanner.BeaconScanObject;
 import com.sensorberg.android.sensorscanner.R;
 import com.sensorberg.android.sensorscanner.SensorScanner;
+import com.sensorberg.sdk.Logger;
+import com.sensorberg.sdk.internal.AndroidPlattform;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import de.keyboardsurfer.android.widget.crouton.Configuration;
+import de.keyboardsurfer.android.widget.crouton.Crouton;
+import de.keyboardsurfer.android.widget.crouton.Style;
 
 public abstract class BeaconScanFragment extends ListFragment implements SensorScanner.Listener {
 
@@ -24,6 +35,26 @@ public abstract class BeaconScanFragment extends ListFragment implements SensorS
     private SensorScanner scanner;
     private ScannedBeaconListAdapter adapter;
     private MenuItem activityIndicator;
+    private Crouton noBluetoothCrouton;
+    private BroadcastReceiver blueoothReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            final int state = intent.getIntExtra(BluetoothAdapter.EXTRA_STATE, BluetoothAdapter.ERROR);
+            switch (state) {
+                case BluetoothAdapter.STATE_TURNING_ON:
+                case BluetoothAdapter.STATE_OFF:
+                case BluetoothAdapter.STATE_TURNING_OFF:
+                    bluetoothNotTurnedOn();
+                    break;
+                case BluetoothAdapter.STATE_ON:
+                    noBluetoothCrouton.cancel();
+                    scanner.start();
+                    break;
+
+            }
+        }
+    };
+    private AndroidPlattform plattform;
 
     public BeaconScanFragment() {
         scanObjects = new ArrayList<>();
@@ -38,6 +69,14 @@ public abstract class BeaconScanFragment extends ListFragment implements SensorS
         scanner = getScanner();
         scanner.setListener(this);
         setHasOptionsMenu(true);
+
+        noBluetoothCrouton = Crouton.makeText(getActivity(), "Bluetooth is not turned on",
+                new Style.Builder(Style.ALERT)
+                        .setConfiguration(new Configuration.Builder()
+                                        .setDuration(Configuration.DURATION_INFINITE)
+                                        .build()
+                        )
+                        .build());
     }
 
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
@@ -67,11 +106,18 @@ public abstract class BeaconScanFragment extends ListFragment implements SensorS
     public void onResume() {
         super.onResume();
         scanner.start();
+        IntentFilter bluetoothIntents = new IntentFilter(BluetoothAdapter.ACTION_STATE_CHANGED);
+        if (!plattform.isBluetoothEnabled()){
+            bluetoothNotTurnedOn();
+        }
+        getActivity().registerReceiver(blueoothReceiver, bluetoothIntents);
+
     }
 
     @Override
     public void onPause() {
         scanner.stop();
+        getActivity().unregisterReceiver(blueoothReceiver);
         super.onPause();
     }
 
@@ -88,6 +134,8 @@ public abstract class BeaconScanFragment extends ListFragment implements SensorS
 
         adapter = new ScannedBeaconListAdapter(getActivity(), R.layout.scanlist_listitem, scanObjects, getFormatter());
         setListAdapter(adapter);
+
+        plattform = new AndroidPlattform(inflater.getContext());
         return rootView;
     }
 
@@ -98,5 +146,11 @@ public abstract class BeaconScanFragment extends ListFragment implements SensorS
         scanObjects.clear();
         scanObjects.addAll(beacons);
         adapter.notifyDataSetChanged();
+    }
+
+    private void bluetoothNotTurnedOn() {
+        scanner.stop();
+        scanner.clearCache();
+        noBluetoothCrouton.show();
     }
 }

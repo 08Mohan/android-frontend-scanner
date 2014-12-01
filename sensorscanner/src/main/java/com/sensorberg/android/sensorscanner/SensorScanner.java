@@ -162,8 +162,10 @@ public class SensorScanner implements ScannerListener, Scanner.RssiListener {
     public void stop(){
         scanner.removeScannerListener(this);
         scanner.stop();
-        rssiTimer.cancel();
-        rssiTimer = null;
+        if(rssiTimer != null) {
+            rssiTimer.cancel();
+            rssiTimer = null;
+        }
     }
 
     @Override
