@@ -90,14 +90,22 @@ public class Plotfragment extends Fragment implements SensorScanner.Listener {
         ArrayList<Entry> distanceInMeters =  new ArrayList<>();
         ArrayList<Entry> samplecount =  new ArrayList<>();
 
+        float frameMultiplier = 1000f / sampleWindowMilis;
+
+        long time = -1;
         int i = 0;
         for (BeaconScanObject.BeaconScanDistance beaconScanDistance : readings) {
             xVals.add(String.valueOf(sampleWindowsToShow + 1 - i));
-            averageRssi.add(new Entry(-beaconScanDistance.rssi.avg, i));
-            minRssi.add(new Entry(-beaconScanDistance.rssi.min, i));
-            maxRssi.add(new Entry(-beaconScanDistance.rssi.max, i));
-            distanceInMeters.add(new Entry((float) beaconScanDistance.distanceInMeters, i));
-            samplecount.add(new Entry((float) beaconScanDistance.samplecount, i));
+            if (beaconScanDistance.timestamp.getTime() != time) {
+                averageRssi.add(new Entry(-beaconScanDistance.rssi.avg, i));
+                minRssi.add(new Entry(-beaconScanDistance.rssi.min, i));
+                maxRssi.add(new Entry(-beaconScanDistance.rssi.max, i));
+                distanceInMeters.add(new Entry((float) beaconScanDistance.distanceInMeters, i));
+                samplecount.add(new Entry(beaconScanDistance.samplecount * frameMultiplier, i));
+                time = beaconScanDistance.timestamp.getTime();
+            } else {
+                samplecount.add(new Entry(0f, i));
+            }
             i++;
         }
 
@@ -106,7 +114,7 @@ public class Plotfragment extends Fragment implements SensorScanner.Listener {
         dataSets.add(getDataSet(minRssi, "Min Rssi", Color.LTGRAY, 1f));
         dataSets.add(getDataSet(maxRssi, "Max Rssi", Color.DKGRAY, 1f));
         dataSets.add(getDataSet(distanceInMeters, "Distance", Color.RED, 4f));
-        dataSets.add(getDataSet(samplecount, "Sample Count", Color.GREEN, 4f));
+        dataSets.add(getDataSet(samplecount, "Samples/s", Color.GREEN, 4f));
 
 
         // create a data object with the datasets
