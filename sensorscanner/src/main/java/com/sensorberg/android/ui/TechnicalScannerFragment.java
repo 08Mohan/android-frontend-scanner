@@ -29,8 +29,6 @@ import de.keyboardsurfer.android.widget.crouton.Style;
 
 public class TechnicalScannerFragment extends BeaconScanFragmentWithTotalCount implements BeaconFilter {
 
-    public static Tracking tracking = Tracking.NONE;
-
     private BeaconScanObject filterItem;
     private SensorScanner scanner;
     private MenuItem clearSingleBeaconMenuItem;
