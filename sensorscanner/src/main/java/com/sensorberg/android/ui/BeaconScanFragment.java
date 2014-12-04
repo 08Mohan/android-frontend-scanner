@@ -17,6 +17,7 @@ import android.view.ViewGroup;
 import com.sensorberg.android.sensorscanner.BeaconScanObject;
 import com.sensorberg.android.sensorscanner.R;
 import com.sensorberg.android.sensorscanner.SensorScanner;
+import com.sensorberg.android.showcase.Tracking.Tracking;
 import com.sensorberg.sdk.internal.AndroidPlattform;
 
 import java.util.ArrayList;
@@ -27,6 +28,8 @@ import de.keyboardsurfer.android.widget.crouton.Crouton;
 import de.keyboardsurfer.android.widget.crouton.Style;
 
 public abstract class BeaconScanFragment extends ListFragment implements SensorScanner.Listener {
+
+    public static Tracking tracking = Tracking.NONE;
 
     private final List<BeaconScanObject> scanObjects;
     protected int viewLayout;
@@ -53,6 +56,7 @@ public abstract class BeaconScanFragment extends ListFragment implements SensorS
         }
     };
     private AndroidPlattform plattform;
+
 
     public BeaconScanFragment() {
         scanObjects = new ArrayList<>();
@@ -86,10 +90,12 @@ public abstract class BeaconScanFragment extends ListFragment implements SensorS
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.action_pauseResume || item.getItemId() == R.id.action_activity_indicator){
             if (scanner.isScanning()) {
+                tracking.logEvent("menu_scanner_stopped");
                 item.setTitle(getString(R.string.scanner_menu_resume));
                 activityIndicator.setVisible(false);
                 scanner.stop();
             } else {
+                tracking.logEvent("menu_scanner_resumed");
                 item.setTitle(getString(R.string.scanner_menu_Stop));
                 activityIndicator.setVisible(true);
                 scanner.start();

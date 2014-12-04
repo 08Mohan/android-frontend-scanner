@@ -16,12 +16,15 @@ import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
+import com.sensorberg.android.showcase.Tracking.Tracking;
 import com.sensorberg.sdk.Constants;
 
 import java.util.ArrayList;
 import java.util.Collection;
 
 public class TechnicalSettingsFragment extends Fragment {
+
+    public static Tracking tracking = Tracking.NONE;
 
     private final static class Setting {
         final int min;
@@ -159,6 +162,7 @@ public class TechnicalSettingsFragment extends Fragment {
                     } else {
                         editor.putInt(setting.preferencesKey, seekBar.getProgress());
                         editor.apply();
+                        tracking.logEvent("technical_setting_" + setting.preferencesKey + "_changed");
                     }
                 }
 

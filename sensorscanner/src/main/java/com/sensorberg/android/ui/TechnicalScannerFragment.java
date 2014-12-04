@@ -17,6 +17,7 @@ import com.sensorberg.android.sensorscanner.filter.BeaconFilter;
 import com.sensorberg.android.sensorscanner.nameProvider.CompetitorNameProvider;
 import com.sensorberg.android.sensorscanner.nameProvider.NameProvider;
 import com.sensorberg.android.sensorscanner.nameProvider.SensorbergNameProvider;
+import com.sensorberg.android.showcase.Tracking.Tracking;
 import com.sensorberg.sdk.cluster.BeaconId;
 
 import java.text.DecimalFormat;
@@ -28,6 +29,7 @@ import de.keyboardsurfer.android.widget.crouton.Style;
 
 public class TechnicalScannerFragment extends BeaconScanFragmentWithTotalCount implements BeaconFilter {
 
+    public static Tracking tracking = Tracking.NONE;
 
     private BeaconScanObject filterItem;
     private SensorScanner scanner;
@@ -91,12 +93,15 @@ public class TechnicalScannerFragment extends BeaconScanFragmentWithTotalCount i
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.order_by_distance){
+            tracking.logEvent("menu_orderByDistance");
             Toast.makeText(getActivity(), R.string.coming_soon, Toast.LENGTH_SHORT).show();
             return true;
         } else if (item.getItemId() == R.id.order_by_rssi){
+            tracking.logEvent("menu_orderByRSSI");
             Toast.makeText(getActivity(), R.string.coming_soon, Toast.LENGTH_SHORT).show();
             return true;
         } else if (item.getItemId() == R.id.keep_awake){
+            tracking.logEvent("menu_keepAwake");
             if (stayingAwake){
                 doNotKeepScreenOn();
             } else {
@@ -138,6 +143,7 @@ public class TechnicalScannerFragment extends BeaconScanFragmentWithTotalCount i
     public void onListItemClick(ListView l, View v, int position, long id) {
         super.onListItemClick(l, v, position, id);
         if (filterItem == null){
+            tracking.logEvent("technical_scanner_filterItem");
             filterItem = (BeaconScanObject) getListAdapter().getItem(position);
             Crouton.showText(getActivity(), getString(R.string.single_scan_crouton, filterItem.beaconId.toTraditionalString()), Style.INFO);
             clearSingleBeaconMenuItem.setEnabled(true);
