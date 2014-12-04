@@ -9,4 +9,9 @@
     <string name="single_scan_title">Einzelscan</string>
     <string name="single_scan_crouton">Showing only %s</string>
     <string name="coming_soon">coming soon</string>
+    <string name="menu_item_keep_awake">Keep Awake</string>
+    <string name="menu_item_save_energy">Save the battery</string>
+    <string name="menu_item_order_by">Order By</string>
+    <string name="menu_item_order_by_distance">By Distance</string>
+    <string name="menu_item_order_by_rssi">By Rssi</string>
 </resources>

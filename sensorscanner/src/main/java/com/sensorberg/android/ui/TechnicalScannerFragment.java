@@ -4,6 +4,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -31,6 +32,8 @@ public class TechnicalScannerFragment extends BeaconScanFragmentWithTotalCount i
     private BeaconScanObject filterItem;
     private SensorScanner scanner;
     private MenuItem clearSingleBeaconMenuItem;
+    private MenuItem keepAwakeMenuItem;
+    private boolean stayingAwake;
 
     public void setContainerId(int containerId) {
         this.containerId = containerId;
@@ -82,6 +85,7 @@ public class TechnicalScannerFragment extends BeaconScanFragmentWithTotalCount i
         super.onCreateOptionsMenu(menu, inflater);
         inflater.inflate(R.menu.technical_scanner, menu);
         clearSingleBeaconMenuItem = menu.findItem(R.id.clear_single_beacon_filter);
+        keepAwakeMenuItem = menu.findItem(R.id.keep_awake);
     }
 
     @Override
@@ -92,9 +96,28 @@ public class TechnicalScannerFragment extends BeaconScanFragmentWithTotalCount i
         } else if (item.getItemId() == R.id.order_by_rssi){
             Toast.makeText(getActivity(), R.string.coming_soon, Toast.LENGTH_SHORT).show();
             return true;
+        } else if (item.getItemId() == R.id.keep_awake){
+            if (stayingAwake){
+                doNotKeepScreenOn();
+            } else {
+                keepScreenOn();
+            }
+            return true;
         } else {
             return super.onOptionsItemSelected(item);
         }
+    }
+
+    private void doNotKeepScreenOn() {
+        stayingAwake = false;
+        getActivity().getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+        keepAwakeMenuItem.setTitle(getString(R.string.menu_item_save_energy));
+    }
+
+    private void keepScreenOn() {
+        stayingAwake = true;
+        getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+        keepAwakeMenuItem.setTitle(getString(R.string.menu_item_keep_awake));
     }
 
     @Override
@@ -103,6 +126,12 @@ public class TechnicalScannerFragment extends BeaconScanFragmentWithTotalCount i
         scanner.settings.scanTime = TechnicalSettingsFragment.getSetting(getActivity(), TechnicalSettingsFragment.SCANNER_SCAN_MILIS);
         scanner.settings.pauseTime = TechnicalSettingsFragment.getSetting(getActivity(), TechnicalSettingsFragment.SCANNER_PAUSE_MILIS);
         super.onResume();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        doNotKeepScreenOn();
     }
 
     @Override

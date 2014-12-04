@@ -5,17 +5,21 @@
         android:showAsAction="never"
         android:enabled="false"
         android:title="Show All beacons"/>
+    <item android:id="@+id/keep_awake"
+        android:showAsAction="never"
+        android:enabled="true"
+        android:title="@string/menu_item_keep_awake"/>
     <item
         android:id="@+id/action_orderBy"
         android:showAsAction="never"
-        android:title="Order By">
+        android:title="@string/menu_item_order_by">
         <menu>
             <item
                 android:id="@+id/order_by_distance"
-                android:title="By Distance" />
+                android:title="@string/menu_item_order_by_distance" />
             <item
                 android:id="@+id/order_by_rssi"
-                android:title="By Rssi" />
+                android:title="@string/menu_item_order_by_rssi" />
         </menu>
     </item>
 
