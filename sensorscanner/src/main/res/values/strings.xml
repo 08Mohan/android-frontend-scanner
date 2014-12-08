@@ -14,4 +14,7 @@
     <string name="menu_item_order_by">Order By</string>
     <string name="menu_item_order_by_distance">By Distance</string>
     <string name="menu_item_order_by_rssi">By Rssi</string>
+    <string name="scanner_minorFormat">Minor: %d</string>
+    <string name="scanner_majorFormat">Major: %d</string>
+    <string name="scanner_unknownBeaconName">Unknown</string>
 </resources>

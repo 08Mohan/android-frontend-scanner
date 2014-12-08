@@ -11,16 +11,10 @@ android {
     buildToolsVersion "21.1.1"
 
     defaultConfig {
-        applicationId group
         minSdkVersion 14
         targetSdkVersion 21
         versionCode 1
         versionName version
-    }
-    buildTypes {
-        release {
-            runProguard false
-        }
     }
 
     compileOptions {
