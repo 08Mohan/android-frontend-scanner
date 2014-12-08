@@ -5,8 +5,8 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:0.13.2'
-        classpath 'com.github.dcendents:android-maven-plugin:1.0'
+        classpath 'com.android.tools.build:gradle:1.0.0-rc4'
+        classpath 'com.github.dcendents:android-maven-plugin:1.2'
     }
 }
 
@@ -41,8 +41,8 @@ allprojects {
 
 
 
-//    configurations.all {
-//        // check for updates every build
-//        resolutionStrategy.cacheChangingModulesFor 240, 'seconds'
-//    }
+    configurations.all {
+        // check for updates every build
+        resolutionStrategy.cacheChangingModulesFor 240, 'seconds'
+    }
 }
