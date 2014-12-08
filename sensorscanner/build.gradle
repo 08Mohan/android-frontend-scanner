@@ -3,7 +3,7 @@ apply plugin: 'com.android.library'
 
 group = "com.sensorberg.android.sensorscanner"
 archivesBaseName = getName()
-version = "0.2-SNAPSHOT"
+version = "0.2.1-SNAPSHOT"
 
 
 android {

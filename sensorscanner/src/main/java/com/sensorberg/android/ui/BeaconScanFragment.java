@@ -55,7 +55,9 @@ public abstract class BeaconScanFragment extends ListFragment implements SensorS
             }
         }
     };
+
     private AndroidPlattform plattform;
+    private boolean isStoppedFromMenu = false;
 
 
     public BeaconScanFragment() {
@@ -94,7 +96,9 @@ public abstract class BeaconScanFragment extends ListFragment implements SensorS
                 item.setTitle(getString(R.string.scanner_menu_resume));
                 activityIndicator.setVisible(false);
                 scanner.stop();
+                this.isStoppedFromMenu = true;
             } else {
+                isStoppedFromMenu = false;
                 tracking.logEvent("menu_scanner_resumed");
                 item.setTitle(getString(R.string.scanner_menu_Stop));
                 activityIndicator.setVisible(true);
@@ -107,9 +111,11 @@ public abstract class BeaconScanFragment extends ListFragment implements SensorS
     @Override
     public void onResume() {
         super.onResume();
-        scanner.start();
+        if (!isStoppedFromMenu) {
+            scanner.start();
+        }
         IntentFilter bluetoothIntents = new IntentFilter(BluetoothAdapter.ACTION_STATE_CHANGED);
-        if (!plattform.isBluetoothEnabled()){
+        if (!plattform.isBluetoothEnabled()) {
             bluetoothNotTurnedOn();
         }
         getActivity().registerReceiver(blueoothReceiver, bluetoothIntents);
