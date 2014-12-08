@@ -57,14 +57,6 @@ public class SensorScanner implements ScannerListener, Scanner.RssiListener {
         rssiContainer.addNewRssiReading(beaconId, nextRssi);
     }
 
-    public void setSampleWindow(long sampleWindow) {
-        this.sampleWindow = sampleWindow;
-    }
-
-    public void addRuntimeFilter(RuntimeFilter runtimeFilter) {
-        this.runtimeFilters.add(runtimeFilter);
-    }
-
     public boolean isScanning() {
         return scanner.isScanRunning();
     }
@@ -228,6 +220,16 @@ public class SensorScanner implements ScannerListener, Scanner.RssiListener {
             beaconFilters = new ArrayList<>();
         }
         beaconFilters.add(filter);
+        return this;
+    }
+
+    public SensorScanner setSampleWindow(long sampleWindow) {
+        this.sampleWindow = sampleWindow;
+        return this;
+    }
+
+    public SensorScanner addRuntimeFilter(RuntimeFilter runtimeFilter) {
+        this.runtimeFilters.add(runtimeFilter);
         return this;
     }
 
