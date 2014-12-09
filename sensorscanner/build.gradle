@@ -7,8 +7,8 @@ version = "0.2.1-SNAPSHOT"
 
 
 android {
-    compileSdkVersion 21
-    buildToolsVersion "21.1.1"
+    compileSdkVersion project.ext.compileSdkVersion
+    buildToolsVersion project.ext.buildToolsVersion
 
     defaultConfig {
         minSdkVersion 14
