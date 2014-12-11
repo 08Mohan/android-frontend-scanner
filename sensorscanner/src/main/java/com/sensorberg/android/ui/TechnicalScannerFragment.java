@@ -17,7 +17,6 @@ import com.sensorberg.android.sensorscanner.filter.BeaconFilter;
 import com.sensorberg.android.sensorscanner.nameProvider.CompetitorNameProvider;
 import com.sensorberg.android.sensorscanner.nameProvider.NameProvider;
 import com.sensorberg.android.sensorscanner.nameProvider.SensorbergNameProvider;
-import com.sensorberg.android.showcase.Tracking.Tracking;
 import com.sensorberg.sdk.cluster.BeaconId;
 
 import java.text.DecimalFormat;
@@ -27,7 +26,8 @@ import java.text.SimpleDateFormat;
 import de.keyboardsurfer.android.widget.crouton.Crouton;
 import de.keyboardsurfer.android.widget.crouton.Style;
 
-public class TechnicalScannerFragment extends BeaconScanFragmentWithTotalCount implements BeaconFilter {
+public class TechnicalScannerFragment extends BeaconScanFragmentWithSimulation implements BeaconFilter {
+
 
     private BeaconScanObject filterItem;
     private SensorScanner scanner;
@@ -40,7 +40,6 @@ public class TechnicalScannerFragment extends BeaconScanFragmentWithTotalCount i
     }
 
     private int containerId;
-
 
     @Override
     protected SensorScanner getScanner() {
@@ -80,6 +79,8 @@ public class TechnicalScannerFragment extends BeaconScanFragmentWithTotalCount i
         return scanner;
     }
 
+
+
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
@@ -98,13 +99,19 @@ public class TechnicalScannerFragment extends BeaconScanFragmentWithTotalCount i
             tracking.logEvent("menu_orderByRSSI");
             Toast.makeText(getActivity(), R.string.coming_soon, Toast.LENGTH_SHORT).show();
             return true;
-        } else if (item.getItemId() == R.id.keep_awake){
+        } else if (item.getItemId() == R.id.keep_awake) {
             tracking.logEvent("menu_keepAwake");
-            if (stayingAwake){
+            if (stayingAwake) {
                 doNotKeepScreenOn();
             } else {
                 keepScreenOn();
             }
+            return true;
+        } else if (item.getItemId() == R.id.clear_single_beacon_filter) {
+            filterItem = null;
+            clearSingleBeaconMenuItem.setEnabled(false);
+            scanner.start();
+            scanner.clearCache();
             return true;
         } else {
             return super.onOptionsItemSelected(item);
@@ -133,8 +140,8 @@ public class TechnicalScannerFragment extends BeaconScanFragmentWithTotalCount i
 
     @Override
     public void onPause() {
-        super.onPause();
         doNotKeepScreenOn();
+        super.onPause();
     }
 
     @Override
