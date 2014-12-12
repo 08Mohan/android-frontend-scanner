@@ -84,6 +84,7 @@ public abstract class BeaconScanFragment extends ListFragment implements SensorS
     }
 
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
         inflater.inflate(R.menu.scanner, menu);
         activityIndicator = menu.findItem(R.id.action_activity_indicator);
     }
