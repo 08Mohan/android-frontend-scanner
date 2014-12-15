@@ -13,7 +13,7 @@ buildscript {
 
 allprojects {
     project.ext.sensorbergSDKVersion = "0.9.0-RC9"
-    project.ext.sensorbergBootstrapperVersion = "1.9.0-RC6"
+    project.ext.sensorbergBootstrapperVersion = "1.9.0-RC9"
 
     project.ext.compileSdkVersion = 21
     project.ext.buildToolsVersion  = "21.1.1"
