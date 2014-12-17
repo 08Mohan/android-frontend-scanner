@@ -13,15 +13,15 @@ import com.sensorberg.sdk.Constants;
 import com.sensorberg.sdk.cluster.BeaconId;
 import com.sensorberg.sdk.internal.AndroidPlattform;
 import com.sensorberg.sdk.internal.Plattform;
+import com.sensorberg.sdk.scanner.AbstractScanner;
 import com.sensorberg.sdk.scanner.ScanEvent;
 import com.sensorberg.sdk.scanner.ScanEventType;
-import com.sensorberg.sdk.scanner.Scanner;
 import com.sensorberg.sdk.scanner.ScannerListener;
+import com.sensorberg.sdk.scanner.UIScanner;
 import com.sensorberg.sdk.settings.Settings;
 import com.sensorberg.utils.ListUtils;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
@@ -29,7 +29,7 @@ import java.util.Set;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class SensorScanner implements ScannerListener, Scanner.RssiListener {
+public class SensorScanner implements ScannerListener, AbstractScanner.RssiListener {
 
     private static final String TAG = SensorScanner.class.getSimpleName();
 
@@ -45,7 +45,7 @@ public class SensorScanner implements ScannerListener, Scanner.RssiListener {
     private RSSIContainer rssiContainer = new RSSIContainer();
     private Timer rssiTimer;
 
-    private final Scanner scanner;
+    private final UIScanner scanner;
     private long sampleWindow = 1000;
     private final List<RuntimeFilter> runtimeFilters;
 
@@ -112,7 +112,7 @@ public class SensorScanner implements ScannerListener, Scanner.RssiListener {
         settings.pauseTime = TechnicalSettingsFragment.getSetting(context, TechnicalSettingsFragment.PLOT_PAUSE_MILIS);
 
 
-        scanner = new Scanner(settings, platform);
+        scanner = new UIScanner(settings, platform);
         handler = new ResponderHandler(this, Looper.myLooper());
 
         runtimeFilters = new ArrayList<>();
