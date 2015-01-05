@@ -2,6 +2,7 @@ package com.sensorberg.android.showcase.Tracking;
 
 import android.app.Activity;
 import android.app.Application;
+import android.app.Fragment;
 import android.os.Bundle;
 
 public interface Tracking extends Application.ActivityLifecycleCallbacks {
@@ -14,6 +15,11 @@ public interface Tracking extends Application.ActivityLifecycleCallbacks {
 
         @Override
         public void logEvent(String eventName, boolean checked) {
+
+        }
+
+        @Override
+        public void logFragmentDisplay(Class<? extends Fragment> aClass) {
 
         }
 
@@ -53,7 +59,9 @@ public interface Tracking extends Application.ActivityLifecycleCallbacks {
         }
     };
 
-    public void logEvent(String name);
+    void logEvent(String name);
 
     void logEvent(String eventName, boolean checked);
+
+    void logFragmentDisplay(Class<? extends Fragment> aClass);
 }
