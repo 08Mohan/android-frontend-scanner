@@ -1,14 +1,6 @@
 package com.sensorberg.android.showcase.utils;
 
-import android.app.Fragment;
-import android.content.Context;
-
-import com.sensorberg.android.showcase.Tracking.FlurryTracking;
-
-import java.util.HashMap;
-import java.util.Map;
-
-public class ShowcaseTracking extends FlurryTracking {
+public class TrackingConstants {
 
     public static final String BEACON_EVENT_RESOLVED = "Beacon-Event resolved";
     public static final String BEACON_EVENT_DETECTED = "Beacon-Event detected";
@@ -57,21 +49,4 @@ public class ShowcaseTracking extends FlurryTracking {
     public static final String BEACON_EVENT_IN_APP_MESSAGE_PRESENTED = "Beacon-Event-Dialog-Without-URL presented";
     public static final String BEACON_EVENT_IN_APP_MESSAGE_WITH_WEBSITE_PRESENTED = "Beacon-Event-Dialog-With-URL presented";
 
-
-
-    public static Map<Class, String> keys = new HashMap<>();
-
-    public ShowcaseTracking(Context context, String apiKey) {
-        super(context, apiKey);
-    }
-
-    @Override
-    public void logFragmentDisplay(Class<? extends Fragment> aClass) {
-        String resolvedValue = keys.get(aClass);
-        if (resolvedValue != null) {
-            logEvent(resolvedValue);
-        } else {
-            super.logFragmentDisplay(aClass);
-        }
-    }
 }

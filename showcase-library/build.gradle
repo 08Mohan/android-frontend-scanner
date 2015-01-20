@@ -23,9 +23,4 @@ android {
     }
 }
 
-dependencies {
-    compile 'me.dm7.barcodescanner:zxing:1.5'
-    compile "com.sensorberg.sdk:sensorberg-sdk:${project.ext.sensorbergSDKVersion}"
-}
-
 apply from: '../uploadConf.gradle'

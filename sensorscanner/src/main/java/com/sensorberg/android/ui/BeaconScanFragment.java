@@ -18,7 +18,7 @@ import com.sensorberg.android.sensorscanner.BeaconScanObject;
 import com.sensorberg.android.sensorscanner.R;
 import com.sensorberg.android.sensorscanner.SensorScanner;
 import com.sensorberg.android.showcase.Tracking.Tracking;
-import com.sensorberg.android.showcase.utils.ShowcaseTracking;
+import com.sensorberg.android.showcase.utils.TrackingConstants;
 import com.sensorberg.sdk.internal.AndroidPlattform;
 
 import java.util.ArrayList;
@@ -94,14 +94,14 @@ public abstract class BeaconScanFragment extends ListFragment implements SensorS
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.action_pauseResume || item.getItemId() == R.id.action_activity_indicator){
             if (scanner.isScanning()) {
-                tracking.logEvent(ShowcaseTracking.MENU_SCANNER_STOPPED);
+                tracking.logEvent(TrackingConstants.MENU_SCANNER_STOPPED);
                 item.setTitle(getString(R.string.scanner_menu_resume));
                 activityIndicator.setVisible(false);
                 scanner.stop();
                 this.isStoppedFromMenu = true;
             } else {
                 isStoppedFromMenu = false;
-                tracking.logEvent(ShowcaseTracking.MENU_SCANNER_RESUMED);
+                tracking.logEvent(TrackingConstants.MENU_SCANNER_RESUMED);
                 item.setTitle(getString(R.string.scanner_menu_Stop));
                 activityIndicator.setVisible(true);
                 scanner.start();
