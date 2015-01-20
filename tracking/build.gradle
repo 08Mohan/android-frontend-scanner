@@ -4,11 +4,6 @@ group = "com.sensorberg.android.tracking"
 archivesBaseName = getName()
 version = "1.0-SNAPSHOT"
 
-
-dependencies {
-    compile files('libs/FlurryAnalytics-4.2.0.jar')
-}
-
 android {
     compileSdkVersion project.ext.compileSdkVersion
     buildToolsVersion project.ext.buildToolsVersion
