@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/about_logo"
+            android:layout_width="150dip"
+            android:layout_height="150dip"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:paddingBottom="15dip"
+            android:paddingTop="15dip"
+            android:src="@drawable/ic_launcher" />
+
+        <TextView
+            android:id="@+id/about_appName"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/about_logo"
+            android:layout_centerHorizontal="true"
+            android:gravity="center"
+            android:text="@string/app_name"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/about_appVersion"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/about_appName"
+            android:gravity="center" />
+
+        <Button
+            android:id="@+id/about_buyBeaconsButton"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/about_appVersion"
+            android:text="@string/about_buy_beacons_button" />
+
+        <Button
+            android:id="@+id/about_androidSdkButton"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/about_buyBeaconsButton"
+            android:text="@string/about_sensorberg_android_sdk_button" />
+
+        <Button
+            android:id="@+id/about_iosSdkButton"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/about_androidSdkButton"
+            android:text="@string/about_sensorberg_ios_sdk_button" />
+
+        <Button
+            android:id="@+id/about_supportButton"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/about_iosSdkButton"
+            android:text="@string/about_support_button" />
+
+        <Button
+            android:id="@+id/about_contact"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/about_supportButton"
+            android:text="@string/about_contact_button" />
+
+
+        <TextView
+            android:id="@+id/about_footer"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/about_contact"
+            android:gravity="center"
+            android:paddingBottom="5dip"
+            android:text="@string/about_footer" />
+    </RelativeLayout>

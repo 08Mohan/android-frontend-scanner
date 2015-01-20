@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="checkedColor">#ff0f5c06</color>
+    <color name="notCheckedColor">#ffff0000</color>
+    <color name="unknownColor">#ff747474</color>
+
+</resources>

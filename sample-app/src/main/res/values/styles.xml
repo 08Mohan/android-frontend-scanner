@@ -1,0 +1,37 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="android:Theme.Holo.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+    </style>
+
+    <!--<style name="AppTheme" parent="Theme.AppCompat.Light">-->
+    <!--&lt;!&ndash; customize the color palette &ndash;&gt;-->
+    <!--<item name="colorPrimary">@color/abc_background_cache_hint_selector_material_light</item>-->
+    <!--<item name="colorPrimaryDark">@color/abc_background_cache_hint_selector_material_dark</item>-->
+    <!--<item name="colorAccent">@color/abc_primary_text_disable_only_material_dark</item>-->
+    <!--</style>-->
+
+    <style name="StatusTextTitle" parent="AppTheme">
+        <item name="android:paddingBottom">12dip</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="StatusTextContent" parent="AppTheme">
+        <item name="android:fontFamily">bold</item>
+        <item name="android:layout_alignParentEnd">true</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <!-- Does not work yet-->
+    <style name="separator">
+        <item name="android:layout_height">1dip</item>
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:paddingEnd">5dip</item>
+        <item name="android:paddingStart">5dip</item>
+        <item name="android:color">@android:color/holo_blue_dark</item>
+    </style>
+
+</resources>

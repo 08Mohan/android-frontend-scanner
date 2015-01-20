@@ -1,3 +1,4 @@
 include ':tracking'
 include ':showcase-library'
 include ':sensorscanner'
+include ':sample-app'

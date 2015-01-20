@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Status</string>
+    <string name="checked">✔︎</string>
+    <string name="not_checked">✘</string>
+    <string name="not_determined">�</string>
+    <string name="about_buy_beacons_button">Beacon Kaufen</string>
+    <string name="about_sensorberg_android_sdk_button">Sensorberg Android SDK</string>
+    <string name="about_sensorberg_ios_sdk_button">Sensorberg iOS SDK</string>
+    <string name="about_support_button">Support</string>
+    <string name="about_contact_button">Contact</string>
+    <string name="about_footer"><![CDATA[<b>Sensorberg</b><br/>Beacon Management Platform<br/><a href="http://www.sensorberg.com">sensorberg.com</a>]]></string>
+    <string name="action_about">About</string>
+
+</resources>
