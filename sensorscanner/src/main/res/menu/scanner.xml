@@ -2,12 +2,12 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item android:id="@+id/action_activity_indicator"
-        android:title="Scanning"
+        android:title="@string/scanner_menu_scanning"
         android:actionLayout="@layout/menu_activity_indicator"
         android:orderInCategory="1"
         android:showAsAction="always" />
     <item
-        android:title="Pause"
+        android:title="@string/scanner_menu_pause"
         android:orderInCategory="2"
         android:showAsAction="ifRoom"
         android:id="@+id/action_pauseResume"/>

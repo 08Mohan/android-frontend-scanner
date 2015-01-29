@@ -4,9 +4,9 @@
     <string name="accessibility_scanlist_signal_strength">Beacon signal strength</string>
     <string name="title_beacon_scanner_with_count">Beacons (%d)</string>
     <string name="scanner_menu_resume">Scan</string>
-    <string name="scanner_menu_Stop">Stop</string>
+    <string name="scanner_menu_pause">Stop</string>
     <string name="error_crouton_bluetooth_not_turned_on">Bluetooth is not turned on</string>
-    <string name="single_scan_title">Einzelscan</string>
+    <string name="single_scan_title">Only showing one Beacon</string>
     <string name="single_scan_crouton">Showing only %s</string>
     <string name="coming_soon">coming soon</string>
     <string name="menu_item_keep_awake">Keep Awake</string>
@@ -17,4 +17,5 @@
     <string name="scanner_minorFormat">Minor: %d</string>
     <string name="scanner_majorFormat">Major: %d</string>
     <string name="scanner_unknownBeaconName">Unknown</string>
+    <string name="scanner_menu_scanning">Scanning…</string>
 </resources>
