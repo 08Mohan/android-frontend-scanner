@@ -3,12 +3,13 @@
 # android-frontend-scanner
 Use the scanner contained in our SDK to show beacons in a ListView or as a Beacon Ranger.
 
+<img src="https://raw.githubusercontent.com/sensorberg-dev/android-frontend-scanner/master/documentation/screenshots/screenshot0.png" width="250">
+<img src="https://raw.githubusercontent.com/sensorberg-dev/android-frontend-scanner/master/documentation/screenshots/screenshot1.png" width="250">
+<img src="https://raw.githubusercontent.com/sensorberg-dev/android-frontend-scanner/master/documentation/screenshots/screenshot2.png" width="250">
+<img src="https://raw.githubusercontent.com/sensorberg-dev/android-frontend-scanner/master/documentation/screenshots/screenshot3.png" width="250">
+<img src="https://raw.githubusercontent.com/sensorberg-dev/android-frontend-scanner/master/documentation/screenshots/screenshot4.png" width="250">
 
-![Simple Scanner](https://raw.githubusercontent.com/sensorberg-dev/android-frontend-scanner/master/documentation/screenshots/screenshot0.png =250x)
-![Technical Settings](https://raw.githubusercontent.com/sensorberg-dev/android-frontend-scanner/master/documentation/screenshots/screenshot1.png =250x)
-![Technical Scanner](https://raw.githubusercontent.com/sensorberg-dev/android-frontend-scanner/master/documentation/screenshots/screenshot2.png =250x)
-![Technical Scanner showing only one beacon](https://raw.githubusercontent.com/sensorberg-dev/android-frontend-scanner/master/documentation/screenshots/screenshot3.png =250x)
-![Plot Fragment](https://raw.githubusercontent.com/sensorberg-dev/android-frontend-scanner/master/documentation/screenshots/screenshot4.png =250x)
+If you want to use the scanner in your own application, build the aar and integrate it as a module in your project as described [here](http://tools.android.com/tech-docs/new-build-system/tips#TOC-Handling-transitive-dependencies-for-local-artifacts-jars-and-aar-)
 
 #How to use:
 
