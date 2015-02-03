@@ -2,10 +2,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".Welcome">
     <item
-        android:id="@+id/action_about_screen"
-        android:orderInCategory="100"
+        android:id="@+id/action_simple_scanner"
+        android:orderInCategory="98"
         android:showAsAction="never"
-        android:title="@string/action_about" />
+        android:title="Simple Scanner" />
     <item
         android:id="@+id/action_technical_scanner"
         android:orderInCategory="98"

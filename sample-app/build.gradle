@@ -54,9 +54,33 @@ android {
     }
 }
 
+def output = new File("build/outputs/screenshot")
+
+task cleanRobotiumScreenshots <<{
+    output.delete();
+}
+
+clean.dependsOn(cleanRobotiumScreenshots)
+
+task pullRobotiumScreenshots << {
+
+//    doFirst {
+//        if (!output.exists()){
+//            println "creating ${output.absolutePath} folder"
+//            output.mkdirs();
+//        }
+//    }
+    exec {
+        commandLine "/usr/local/bin/adb", "pull", "/sdcard/Robotium-Screenshots/", output.getAbsolutePath()
+    }
+}
+
 dependencies {    
     compile 'com.android.support:support-v13:21.0.0'
     compile 'com.android.support:appcompat-v7:21.0.+'
 
-    compile project(':sensorscanner')    
+    compile project(':sensorscanner')
+
+    androidTestCompile 'com.jayway.android.robotium:robotium-solo:5.2.1'
+    androidTestCompile 'com.squareup.spoon:spoon-client:1.1.1'
 }

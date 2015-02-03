@@ -28,7 +28,7 @@ public class AppFragmentActivity extends Activity {
         ActionBar actionBar = getActionBar();
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
         actionBar.setDisplayShowTitleEnabled(true);
-        actionBar.setTitle("Sensorscanner sample");
+//        actionBar.setTitle(getString(R.strings.));
     }
 
     @Override
@@ -44,7 +44,6 @@ public class AppFragmentActivity extends Activity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
         if (id == R.id.action_technical_scanner) {
             TechnicalScannerFragment newFragment = new TechnicalScannerFragment();
             newFragment.setContainerId(R.id.container);
@@ -58,7 +57,15 @@ public class AppFragmentActivity extends Activity {
                     .replace(R.id.container, newFragment)
                     .commit();
             return true;
+        } else if (id == R.id.action_simple_scanner){
+            SampleBeaconScanFragment newFragment = new SampleBeaconScanFragment();
+            getFragmentManager().beginTransaction()
+                    .replace(R.id.container, newFragment)
+                    .commit();
+            return true;
         }
         return super.onOptionsItemSelected(item);
     }
+
+
 }
