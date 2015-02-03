@@ -1,21 +1,19 @@
-package com.sensorberg.android.openplayground.showcase.debug.test;
+package com.sensorberg.android.sensorscanner.test;
 
-import android.graphics.Point;
 import android.test.ActivityInstrumentationTestCase2;
 
 import com.robotium.solo.Solo;
 import com.robotium.solo.Timeout;
-import com.sensorberg.android.openplayground.showcase.debug.test.robotiumHelper.MySolo;
 import com.sensorberg.android.sensorscanner.sample.AppFragmentActivity;
 import com.sensorberg.android.sensorscanner.sample.R;
 
 import java.io.File;
 
+import static com.sensorberg.android.sensorscanner.test.FileHelper.deleteDir;
 
 public class Screenshots extends ActivityInstrumentationTestCase2<AppFragmentActivity> {
-  	private MySolo solo;
+  	private Solo solo;
     private int i = 0;
-    private Point deviceSize;
     private File screenshotFolder;
 
     public Screenshots() {
@@ -24,15 +22,14 @@ public class Screenshots extends ActivityInstrumentationTestCase2<AppFragmentAct
 
   	public void setUp() throws Exception {
         super.setUp();
-		solo = new MySolo(getInstrumentation(), getActivity());
+		solo = new Solo(getInstrumentation(), getActivity());
 		getActivity();
 
-        deviceSize = new Point();
-        solo.getCurrentActivity().getWindowManager().getDefaultDisplay().getSize(deviceSize);
         solo.getConfig().screenshotFileType = Solo.Config.ScreenshotFileType.PNG;
 
         screenshotFolder = new File(solo.getConfig().screenshotSavePath);
-        screenshotFolder.delete();
+
+        assertTrue(deleteDir(screenshotFolder));
         screenshotFolder.mkdirs();
 
         assertTrue(screenshotFolder.exists());
@@ -79,9 +76,6 @@ public class Screenshots extends ActivityInstrumentationTestCase2<AppFragmentAct
 
         solo.sleep(500);
         String name = "screenshot" + i++;
-
-
         solo.takeScreenshot(name);
-//        Spoon.screenshot(getActivity(), name);
     }
 }
